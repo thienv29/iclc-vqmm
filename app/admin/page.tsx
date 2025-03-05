@@ -11,11 +11,12 @@ interface Segment {
   text: string
   color: string
   description: string
+  probability: number
 }
 
 export default function AdminPage() {
   const [segments, setSegments] = useState<Segment[]>([])
-  const [newSegment, setNewSegment] = useState<Segment>({ text: "", color: "#000000", description: "" })
+  const [newSegment, setNewSegment] = useState<Segment>({ text: "", color: "#000000", description: "", probability: 0 })
 
   useEffect(() => {
     const savedSegments = localStorage.getItem("wheelSegments")
@@ -30,21 +31,31 @@ export default function AdminPage() {
   }
 
   const addSegment = () => {
-    if (newSegment.text && newSegment.color) {
-      saveSegments([...segments, newSegment])
-      setNewSegment({ text: "", color: "#000000", description: "" })
+    if (!newSegment.text || !newSegment.color || newSegment.probability <= 0) {
+      return; // Prevent adding if any field is missing or probability is invalid
     }
-  }
+
+    const isDuplicate = segments.some((segment) => segment.text === newSegment.text);
+    if (isDuplicate) {
+      alert("Phần thưởng này đã tồn tại."); // Display an alert to the user
+      return; // Prevent adding duplicate
+    }
+
+    saveSegments([...segments, newSegment]);
+    setNewSegment({ text: "", color: "#000000", description: "", probability: 0 });
+  };
 
   const removeSegment = (index: number) => {
     const updatedSegments = segments.filter((_, i) => i !== index)
     saveSegments(updatedSegments)
   }
 
-  const updateSegment = (index: number, field: keyof Segment, value: string) => {
+  const updateSegment = (index: number, field: keyof Segment, value: string | number) => {
     const updatedSegments = segments.map((segment, i) => (i === index ? { ...segment, [field]: value } : segment))
     saveSegments(updatedSegments)
   }
+
+  const totalProbability = segments.reduce((sum, segment) => sum + segment.probability, 0)
 
   return (
     <div className="container mx-auto p-4">
@@ -74,6 +85,18 @@ export default function AdminPage() {
               onChange={(e) => setNewSegment({ ...newSegment, color: e.target.value })}
             />
           </div>
+          <div>
+            <Label htmlFor="new-probability">Tỉ lệ (%)</Label>
+            <Input
+              id="new-probability"
+              type="number"
+              min="0"
+              max="100"
+              step="0.1"
+              value={newSegment.probability}
+              onChange={(e) => setNewSegment({ ...newSegment, probability: Number.parseFloat(e.target.value) })}
+            />
+          </div>
         </div>
         <div className="mb-4">
           <Label htmlFor="new-description">Mô tả</Label>
@@ -95,6 +118,15 @@ export default function AdminPage() {
               placeholder="Tên phần thưởng"
             />
             <Input type="color" value={segment.color} onChange={(e) => updateSegment(index, "color", e.target.value)} />
+            <Input
+              type="number"
+              min="0"
+              max="100"
+              step="0.1"
+              value={segment.probability}
+              onChange={(e) => updateSegment(index, "probability", Number.parseFloat(e.target.value))}
+              placeholder="Tỉ lệ (%)"
+            />
           </div>
           <div className="mb-2">
             <Label>Mô tả</Label>
@@ -108,7 +140,17 @@ export default function AdminPage() {
           </Button>
         </div>
       ))}
+
+      <div className="mt-4 p-4 bg-yellow-100 rounded-md">
+        <p className="font-bold">Tổng tỉ lệ: {totalProbability.toFixed(1)}%</p>
+        {totalProbability !== 100 && (
+          <p className="text-red-500 mt-2">Cảnh báo: Tổng tỉ lệ phải bằng 100%. Vui lòng điều chỉnh các tỉ lệ.</p>
+        )}
+        <p className="mt-2 text-sm text-gray-600">
+          Lưu ý: Tỉ lệ này ảnh hưởng đến xác suất trúng thưởng, nhưng không ảnh hưởng đến kích thước của các phân khúc
+          trên vòng quay.
+        </p>
+      </div>
     </div>
   )
 }
-

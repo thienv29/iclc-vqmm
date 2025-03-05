@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import LuckyWheel from "@/components/lucky-wheel"
 import ResultModal from "@/components/result-modal"
@@ -11,6 +11,7 @@ interface Segment {
   text: string
   color: string
   description: string
+  probability: number
 }
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false)
   const [userData, setUserData] = useState<UserData | null>(null)
   const [segments, setSegments] = useState<Segment[]>([])
+  const [spinAngle, setSpinAngle] = useState(0)
 
   useEffect(() => {
     const savedSegments = localStorage.getItem("wheelSegments")
@@ -27,43 +29,61 @@ export default function Home() {
     } else {
       // Fallback to default segments if none are saved
       setSegments([
-        { text: "50.000đ", color: "#EF4444", description: "Giải thưởng tiền mặt 50.000đ" },
-        { text: "Chúc may mắn", color: "#F59E0B", description: "Chúc bạn may mắn lần sau" },
-        { text: "100.000đ", color: "#10B981", description: "Giải thưởng tiền mặt 100.000đ" },
-        { text: "Mất lượt", color: "#3B82F6", description: "Rất tiếc, bạn đã mất lượt" },
-        { text: "200.000đ", color: "#8B5CF6", description: "Giải thưởng tiền mặt 200.000đ" },
-        { text: "Thêm lượt", color: "#EC4899", description: "Bạn được thêm một lượt quay" },
-        { text: "500.000đ", color: "#F97316", description: "Giải thưởng lớn: 500.000đ" },
-        { text: "Chúc may mắn", color: "#06B6D4", description: "Chúc bạn may mắn lần sau" },
+        { text: "50.000đ", color: "#EF4444", description: "Giải thưởng tiền mặt 50.000đ", probability: 20 },
+        { text: "Chúc may mắn", color: "#F59E0B", description: "Chúc bạn may mắn lần sau", probability: 30 },
+        { text: "100.000đ", color: "#10B981", description: "Giải thưởng tiền mặt 100.000đ", probability: 15 },
+        { text: "Mất lượt", color: "#3B82F6", description: "Rất tiếc, bạn đã mất lượt", probability: 10 },
+        { text: "200.000đ", color: "#8B5CF6", description: "Giải thưởng tiền mặt 200.000đ", probability: 10 },
+        { text: "Thêm lượt", color: "#EC4899", description: "Bạn được thêm một lượt quay", probability: 10 },
+        { text: "500.000đ", color: "#F97316", description: "Giải thưởng lớn: 500.000đ", probability: 5 },
       ])
     }
   }, [])
 
-  const handleSpin = () => {
+  const selectRandomSegment = useCallback(() => {
+    const randomValue = Math.random() * segments.length
+    const selectedIndex = Math.floor(randomValue)
+    console.log(segments[selectedIndex])
+    return segments[selectedIndex]
+  }, [segments])
+
+  const handleSpin = useCallback(() => {
     if (isSpinning) return
 
+    const selectedSegment = selectRandomSegment()
+    setResult(selectedSegment)
+
+    // Calculate the spin angle
+    const segmentAngle = 360 / segments.length
+    const selectedIndex = segments.findIndex((segment) => segment.text === selectedSegment.text)
+    const baseAngle = selectedIndex * segmentAngle
+    const randomOffset = Math.random() * (segmentAngle * 0.8) - segmentAngle * 0.4
+    const totalRotations = 5 // Number of full rotations before stopping
+    const totalAngle = 360 * totalRotations + baseAngle + randomOffset
+
+    setSpinAngle(totalAngle)
     setIsSpinning(true)
-    setResult(null)
+  }, [isSpinning, selectRandomSegment, segments])
 
-    // After spinning completes
-    setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * segments.length)
-      setResult(segments[randomIndex])
-      setIsSpinning(false)
-      setShowModal(true)
-    }, 5000) // 5 seconds of spinning
-  }
+  const handleSpinComplete = useCallback(() => {
+    setIsSpinning(false)
+    setShowModal(true)
+  }, [])
 
-  const handleFormSubmit = (data: UserData) => {
-    setUserData(data)
-    handleSpin() // Automatically spin the wheel after form submission
-  }
+  const handleFormSubmit = useCallback(
+    (data: UserData) => {
+      setUserData(data)
+      handleSpin()
+    },
+    [handleSpin],
+  )
 
-  const resetGame = () => {
+  const resetGame = useCallback(() => {
     setUserData(null)
     setResult(null)
     setShowModal(false)
-  }
+    setSpinAngle(0)
+  }, [])
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-4">
@@ -77,7 +97,12 @@ export default function Home() {
           {/* Vòng quay */}
           <div className="md:w-1/2 flex flex-col items-center">
             <div className="relative w-full max-w-md">
-              <LuckyWheel segments={segments} isSpinning={isSpinning} />
+              <LuckyWheel
+                segments={segments}
+                isSpinning={isSpinning}
+                spinAngle={spinAngle}
+                onSpinComplete={handleSpinComplete}
+              />
             </div>
 
             {userData && !isSpinning && (
