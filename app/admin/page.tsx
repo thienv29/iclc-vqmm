@@ -1,156 +1,145 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { PrizeConfig } from "@/components/prize-config"
+import { WheelConfigComponent } from "@/components/wheel-config"
+import { AdminHeader } from "@/components/admin-header"
+import { AdminSidebar } from "@/components/admin-sidebar"
+import { StatisticsModal } from "@/components/statistics-modal"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import RichTextEditor from "@/components/rich-text-editor"
-import Link from "next/link"
-
-interface Segment {
-  text: string
-  color: string
-  description: string
-  probability: number
-}
+import { BarChart2, RefreshCw } from "lucide-react"
+import type { Prize } from "@/types/prize"
+import { StorageService } from "@/services/storage-service"
 
 export default function AdminPage() {
-  const [segments, setSegments] = useState<Segment[]>([])
-  const [newSegment, setNewSegment] = useState<Segment>({ text: "", color: "#000000", description: "", probability: 0 })
+  const [prizes, setPrizes] = useState<Prize[]>([])
+  const [spinResults, setSpinResults] = useState<any[]>([])
+  const [activeTab, setActiveTab] = useState<string>("prizes")
+  const [showStats, setShowStats] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
+  // Load data from localStorage on component mount
   useEffect(() => {
-    const savedSegments = localStorage.getItem("wheelSegments")
-    if (savedSegments) {
-      setSegments(JSON.parse(savedSegments))
-    }
+    const data = StorageService.getData()
+    setPrizes(data.prizes)
+    setSpinResults(data.spinResults)
+    setIsLoading(false)
   }, [])
 
-  const saveSegments = (updatedSegments: Segment[]) => {
-    localStorage.setItem("wheelSegments", JSON.stringify(updatedSegments))
-    setSegments(updatedSegments)
+  const handlePrizesChange = (updatedPrizes: Prize[]) => {
+    setPrizes(updatedPrizes)
+    StorageService.savePrizes(updatedPrizes)
   }
 
-  const addSegment = () => {
-    if (!newSegment.text || !newSegment.color || newSegment.probability <= 0) {
-      return; // Prevent adding if any field is missing or probability is invalid
+  const handleClearHistory = () => {
+    StorageService.clearSpinResults()
+    setSpinResults([])
+  }
+
+  const handleResetToDefault = () => {
+    if (
+      window.confirm(
+        "Bạn có chắc chắn muốn đặt lại tất cả dữ liệu về mặc định không? Hành động này không thể hoàn tác.",
+      )
+    ) {
+      StorageService.resetToDefault()
+      const data = StorageService.getData()
+      setPrizes(data.prizes)
+      setSpinResults(data.spinResults)
     }
-
-    const isDuplicate = segments.some((segment) => segment.text === newSegment.text);
-    if (isDuplicate) {
-      alert("Phần thưởng này đã tồn tại."); // Display an alert to the user
-      return; // Prevent adding duplicate
-    }
-
-    saveSegments([...segments, newSegment]);
-    setNewSegment({ text: "", color: "#000000", description: "", probability: 0 });
-  };
-
-  const removeSegment = (index: number) => {
-    const updatedSegments = segments.filter((_, i) => i !== index)
-    saveSegments(updatedSegments)
   }
 
-  const updateSegment = (index: number, field: keyof Segment, value: string | number) => {
-    const updatedSegments = segments.map((segment, i) => (i === index ? { ...segment, [field]: value } : segment))
-    saveSegments(updatedSegments)
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin mr-2">
+          <RefreshCw size={24} />
+        </div>
+        <span>Đang tải...</span>
+      </div>
+    )
   }
-
-  const totalProbability = segments.reduce((sum, segment) => sum + segment.probability, 0)
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Quản lý Vòng Quay May Mắn</h1>
-      <Link href="/" className="text-blue-500 hover:underline mb-4 block">
-        Quay lại trang chính
-      </Link>
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-blue-50">
+      <AdminHeader />
+      <div className="flex">
+        <AdminSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+        <main className="flex-1 p-6">
+          {activeTab === "prizes" && (
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <h1 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+                Quản Lý Phần Thưởng
+              </h1>
+              <PrizeConfig prizes={prizes} onPrizesChange={handlePrizesChange} />
+            </div>
+          )}
+          {activeTab === "settings" && (
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <h1 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+                Cài Đặt Vòng Quay
+              </h1>
 
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Thêm phần thưởng mới</h2>
-        <div className="flex gap-4 mb-4">
-          <div className="flex-1">
-            <Label htmlFor="new-text">Tên phần thưởng</Label>
-            <Input
-              id="new-text"
-              value={newSegment.text}
-              onChange={(e) => setNewSegment({ ...newSegment, text: e.target.value })}
-              placeholder="Nhập tên phần thưởng"
-            />
-          </div>
-          <div>
-            <Label htmlFor="new-color">Màu sắc</Label>
-            <Input
-              id="new-color"
-              type="color"
-              value={newSegment.color}
-              onChange={(e) => setNewSegment({ ...newSegment, color: e.target.value })}
-            />
-          </div>
-          <div>
-            <Label htmlFor="new-probability">Tỉ lệ (%)</Label>
-            <Input
-              id="new-probability"
-              type="number"
-              min="0"
-              max="100"
-              step="0.1"
-              value={newSegment.probability}
-              onChange={(e) => setNewSegment({ ...newSegment, probability: Number.parseFloat(e.target.value) })}
-            />
-          </div>
-        </div>
-        <div className="mb-4">
-          <Label htmlFor="new-description">Mô tả</Label>
-          <RichTextEditor
-            content={newSegment.description}
-            onChange={(content) => setNewSegment({ ...newSegment, description: content })}
-          />
-        </div>
-        <Button onClick={addSegment}>Thêm phần thưởng</Button>
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-xl font-semibold mb-4">Tùy Chỉnh Vòng Quay</h2>
+                  <WheelConfigComponent />
+                </div>
+
+                <div className="p-4 border rounded-lg">
+                  <h2 className="text-xl font-semibold mb-4">Dữ liệu và Lưu trữ</h2>
+                  <p className="text-gray-600 mb-4">
+                    Tất cả dữ liệu của vòng quay may mắn được lưu trữ trong localStorage của trình duyệt. Dữ liệu sẽ
+                    được giữ lại ngay cả khi bạn đóng trình duyệt, nhưng sẽ bị mất nếu bạn xóa dữ liệu trình duyệt.
+                  </p>
+
+                  <div className="flex space-x-4">
+                    <Button onClick={() => setShowStats(true)} variant="outline">
+                      <BarChart2 className="mr-2 h-4 w-4" />
+                      Xem Thống Kê
+                    </Button>
+                    <Button onClick={handleResetToDefault} variant="destructive">
+                      <RefreshCw className="mr-2 h-4 w-4" />
+                      Đặt Lại Về Mặc Định
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="p-4 border rounded-lg">
+                  <h2 className="text-xl font-semibold mb-4">Thông Tin Phiên Bản</h2>
+                  <p className="text-gray-600">
+                    Vòng Quay May Mắn v1.0.0
+                    <br />
+                    Cập nhật lần cuối: {new Date().toLocaleDateString("vi-VN")}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+          {activeTab === "statistics" && (
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <h1 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+                Thống Kê
+              </h1>
+              <Button onClick={() => setShowStats(true)} className="mb-4">
+                <BarChart2 className="mr-2 h-4 w-4" />
+                Xem Chi Tiết Thống Kê
+              </Button>
+              <p className="text-center text-gray-500">Nhấn vào nút trên để xem chi tiết thống kê về lịch sử quay.</p>
+            </div>
+          )}
+        </main>
       </div>
 
-      <h2 className="text-xl font-semibold mb-2">Danh sách phần thưởng</h2>
-      {segments.map((segment, index) => (
-        <div key={index} className="border p-4 mb-4 rounded-md">
-          <div className="flex gap-4 mb-2">
-            <Input
-              value={segment.text}
-              onChange={(e) => updateSegment(index, "text", e.target.value)}
-              placeholder="Tên phần thưởng"
-            />
-            <Input type="color" value={segment.color} onChange={(e) => updateSegment(index, "color", e.target.value)} />
-            <Input
-              type="number"
-              min="0"
-              max="100"
-              step="0.1"
-              value={segment.probability}
-              onChange={(e) => updateSegment(index, "probability", Number.parseFloat(e.target.value))}
-              placeholder="Tỉ lệ (%)"
-            />
-          </div>
-          <div className="mb-2">
-            <Label>Mô tả</Label>
-            <RichTextEditor
-              content={segment.description}
-              onChange={(content) => updateSegment(index, "description", content)}
-            />
-          </div>
-          <Button variant="destructive" onClick={() => removeSegment(index)}>
-            Xóa
-          </Button>
-        </div>
-      ))}
-
-      <div className="mt-4 p-4 bg-yellow-100 rounded-md">
-        <p className="font-bold">Tổng tỉ lệ: {totalProbability.toFixed(1)}%</p>
-        {totalProbability !== 100 && (
-          <p className="text-red-500 mt-2">Cảnh báo: Tổng tỉ lệ phải bằng 100%. Vui lòng điều chỉnh các tỉ lệ.</p>
-        )}
-        <p className="mt-2 text-sm text-gray-600">
-          Lưu ý: Tỉ lệ này ảnh hưởng đến xác suất trúng thưởng, nhưng không ảnh hưởng đến kích thước của các phân khúc
-          trên vòng quay.
-        </p>
-      </div>
+      {showStats && (
+        <StatisticsModal
+          spinResults={spinResults}
+          prizes={prizes}
+          onClose={() => setShowStats(false)}
+          onClearHistory={handleClearHistory}
+        />
+      )}
     </div>
   )
 }
+
