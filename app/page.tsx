@@ -22,7 +22,7 @@ export default function Home() {
                     className="absolute -bottom-8 right-20 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-6000"></div>
             </div>
 
-            <div className="container mx-auto relative z-10">
+            <div className=" mx-auto relative z-10">
                 <h1 onDoubleClick={handleDoubleClick}
                     className="leading-[3.5rem] text-4xl font-bold text-center mb-2 text-[#16177b] drop-shadow-sm">
                     VÒNG QUAY MAY MẮN

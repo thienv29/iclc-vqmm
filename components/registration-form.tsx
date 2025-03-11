@@ -102,19 +102,6 @@ export const RegistrationForm = forwardRef<{ reset: () => void }, RegistrationFo
                     />
                     <FormField
                         control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem className="space-y-1">
-                                <FormLabel className="text-sm">Email</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Nhập email" type="email" {...field} className="h-9 text-sm" />
-                                </FormControl>
-                                <FormMessage className="text-xs" />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
                         name="phone"
                         render={({ field }) => (
                             <FormItem className="space-y-1">
@@ -126,6 +113,20 @@ export const RegistrationForm = forwardRef<{ reset: () => void }, RegistrationFo
                             </FormItem>
                         )}
                     />
+                    <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem className="space-y-1">
+                                <FormLabel className="text-sm">Email</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="Nhập email" type="email" {...field} className="h-9 text-sm" />
+                                </FormControl>
+                                <FormMessage className="text-xs" />
+                            </FormItem>
+                        )}
+                    />
+
 
                     <div className="border rounded-md">
                         <button
@@ -160,8 +161,11 @@ export const RegistrationForm = forwardRef<{ reset: () => void }, RegistrationFo
                                                     value={field.value}
                                                     className="flex flex-col space-y-1"
                                                 >
-                                                    {boothOptions.map((option) => (
-                                                        <FormItem key={option} className="flex items-center space-x-2 space-y-0">
+                                                    {boothOptions.map((option, index) => (
+                                                        <FormItem
+                                                            key={option}
+                                                            className={`flex items-center space-x-2 space-y-0 ${index === 0 ? "mt-3" : ""}`}
+                                                        >
                                                             <FormControl>
                                                                 <RadioGroupItem value={option} />
                                                             </FormControl>
@@ -212,14 +216,14 @@ export const RegistrationForm = forwardRef<{ reset: () => void }, RegistrationFo
                                     name="interests"
                                     render={() => (
                                         <FormItem>
-                                            {interestOptions.map((item) => (
+                                            {interestOptions.map((item, index) => (
                                                 <FormField
                                                     key={item.id}
                                                     control={form.control}
                                                     name="interests"
                                                     render={({ field }) => {
                                                         return (
-                                                            <FormItem key={item.id} className="flex flex-row items-start space-x-2 space-y-0 mb-1">
+                                                            <FormItem key={item.id} className={`flex flex-row items-start space-x-2 space-y-0 mb-1  ${index === 0 ? "mt-3" : ""}`}>
                                                                 <FormControl>
                                                                     <Checkbox
                                                                         checked={field.value?.includes(item.id)}

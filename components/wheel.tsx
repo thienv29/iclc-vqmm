@@ -363,8 +363,8 @@ export function Wheel({prizes, config, isSpinning, onSpinEnd}: WheelProps) {
         <div className="relative">
             <canvas
                 ref={canvasRef}
-                width={400}
-                height={400}
+                width={500}
+                height={500}
                 className={`border-8 border-pink-300 rounded-full shadow-lg transition-all duration-300 ${
                     isSpinning ? "shadow-xl" : ""
                 }`}
