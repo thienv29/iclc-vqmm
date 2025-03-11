@@ -80,7 +80,7 @@ export default function LuckyWheel() {
   const handleClosePopup = () => {
     setShowPopup(false)
     if (formRef.current) {
-      // formRef.current.reset()
+      formRef.current.reset()
     }
   }
 
