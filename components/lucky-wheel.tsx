@@ -21,7 +21,7 @@ export default function LuckyWheel() {
   const [showPopup, setShowPopup] = useState(false)
   const [showStats, setShowStats] = useState(false)
   const [spinResults, setSpinResults] = useState<SpinResult[]>([])
-  const [formData, setFormData] = useState<Record<string, string>>({})
+  const [formData, setFormData] = useState<any>({})
   const formRef = useRef<{ reset: () => void } | null>(null)
 
   // Load data from localStorage on component mount
@@ -32,7 +32,7 @@ export default function LuckyWheel() {
     setWheelConfig(data.config)
   }, [])
 
-  const handleFormSubmit = (data: Record<string, string>) => {
+  const handleFormSubmit = (data: Record<string, string | string[]>) => {
     if (!isSpinning) {
       setFormData(data)
       setIsSpinning(true)
@@ -59,6 +59,8 @@ export default function LuckyWheel() {
       fullName: formData.name,
       phone: formData.phone,
       email: formData.email,
+      booth: formData.booth,
+      interests: formData.interests,
       prizeName: prize.nameBitrix || prize.wheelDisplayName
     })
 
@@ -66,6 +68,8 @@ export default function LuckyWheel() {
       fullName: formData.name,
       phone: formData.phone,
       email: formData.email,
+      booth: formData.booth,
+      interests: formData.interests,
       prizeName: prize.nameBitrix || prize.wheelDisplayName
     })
 
@@ -88,9 +92,11 @@ export default function LuckyWheel() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 flex-col-reverse md:flex-row relative z-10 items-center justify-center">
       <div className="w-full max-w-lg">
-          <h2 className="text-2xl font-semibold mb-2">Hướng dẫn</h2>
-          <div className="w-full bg-white shadow-lg p-4"><p className="mb-2"><b>Bước 1:</b> Điền thông tin vào form đăng ký để nhận 1 lượt quay và bấm quay ngay.</p></div>
-          <div className="w-full bg-white shadow-lg p-4 mt-3"><p className="mb-2"><b>Bước 2:</b> Kiểm tra email vừa đăng ký để nhận quà xinh cho bé.</p></div>
+          <h2 className="text-2xl font-semibold mb-2">Lưu ý</h2>
+          <div className="w-full bg-white shadow-lg p-4 mt-3"><p className="mb-2">- Chương trình chỉ diễn ra duy nhất ngày 21/03/2025.</p></div>
+          <div className="w-full bg-white shadow-lg p-4 mt-3"><p className="mb-2">- Mỗi số điện thoại chỉ được quay 01 lần.</p></div>
+          <div className="w-full bg-white shadow-lg p-4 mt-3"><p className="mb-2">- Quà tặng hiện vật sẽ được nhận trực tiếp tại quầy.</p></div>
+          <div className="w-full bg-white shadow-lg p-4 mt-3"><p className="mb-2">- Quà tặng E-voucher sẽ nhận qua email.</p></div>
         </div>
       <div className="flex justify-center items-center order-2 md:order-1">
         <div className="relative">
@@ -104,7 +110,7 @@ export default function LuckyWheel() {
         </h2>
         <RegistrationForm onSubmit={handleFormSubmit} isSpinning={isSpinning} ref={formRef} />
       </div>
-      {showPopup && selectedPrize && <PrizePopup prize={selectedPrize} onClose={handleClosePopup} />}
+      {showPopup && selectedPrize && <PrizePopup user={formData} prize={selectedPrize} onClose={handleClosePopup} />}
       {showStats && (
         <StatisticsModal
           spinResults={spinResults}

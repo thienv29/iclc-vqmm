@@ -3,16 +3,17 @@
 import { useEffect } from "react"
 import type { Prize } from "@/types/prize"
 import { Button } from "@/components/ui/button"
-import { X } from "lucide-react"
+import {Plus, X} from "lucide-react"
 import EVoucher from "@/components/e-voucher";
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
 interface PrizePopupProps {
-  prize: Prize
+  prize: Prize,
+  user: any,
   onClose: () => void
 }
 
-export function PrizePopup({ prize, onClose }: PrizePopupProps) {
+export function PrizePopup({ prize, user, onClose }: PrizePopupProps) {
   // Prevent scrolling when popup is open
   useEffect(() => {
     document.body.style.overflow = "hidden"
@@ -27,41 +28,29 @@ export function PrizePopup({ prize, onClose }: PrizePopupProps) {
         <Button variant="ghost" size="icon" className="absolute top-2 right-2" onClick={onClose}>
           <X className="h-4 w-4" />
         </Button>
-        <div className={'h-[70px]'}></div>
 
         <div className="text-center ">
-          <div className="mb-4 animate-bounce ">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="mx-auto text-yellow-500"
-            >
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-            </svg>
-          </div>
+
           <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
             Chúc mừng!
           </h2>
 
           {/*<div className="mb-6 text-center" dangerouslySetInnerHTML={{ __html: prize.description }} />*/}
+          <div className="mb-6 text-center">
+            <p>Chúc mừng Ông/ Bà <span className='font-bold'>{user.name}</span> đã nhận Giải <span dangerouslySetInnerHTML={{ __html: prize.wheelDisplayName }}/></p>
+          </div>
 
           <div className={'flex md:justify-between md:flex-row flex-col justify-center items-center mb-5'}>
             {prize.eVoucher && prize.eVoucher != '' && <EVoucher text={prize.eVoucher}></EVoucher>}
-              <img src={prize.iconImage} width={200} alt={prize.wheelDisplayName}/>
+            <div><Plus className={'text-xl'}/></div>
+              <img src={prize.iconImage} className='h-[300px]' alt={prize.wheelDisplayName}/>
           </div>
 
           <Button
             onClick={onClose}
             className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 transition-all duration-300"
           >
-            Quay Tiếp
+            Nhận quà
           </Button>
         </div>
       </div>

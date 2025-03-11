@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import {interestOptions} from "@/components/registration-form";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -23,8 +24,14 @@ export async function addContact(order: any) {
   });
 }
 
+const getInterestLabels = (interests: string[]) => {
+  return interests.map(id =>
+      interestOptions.find(option => option.id === id)?.label || "Không xác định"
+  );
+};
 
 export async function createDealBitrix24(order: any) {
+  const labels = getInterestLabels(order.interests);
   try {
     const dealApiUrl = 'https://anhnguiclc.com/rest/1/dcqn591zbut35f5u/crm.deal.add.json';
     const contactResponse = await addContact(order);
@@ -38,6 +45,8 @@ export async function createDealBitrix24(order: any) {
           CONTACT_ID: contactResult.result,
           UF_CRM_1637679301: 'Vòng Quay May Mắn ',
           UF_CRM_1729745560: order.nameBitrix || order.prizeName,
+          UF_CRM_1741686182: order.booth,
+          UF_CRM_1741686210: labels.join(', '),
         },
       };
 
