@@ -1,13 +1,14 @@
 export interface Prize {
   id: string
   wheelDisplayName: string
-  popupTitle: string
   description: string
+  eVoucher?: string
+  iconImage: string
   probability: number
   note: string
   backgroundColor?: string
-  textColor?: string
-  imageUrl: string
+  imageUrl: string,
+  nameBitrix: string
 }
 
 export interface SpinResult {

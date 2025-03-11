@@ -4,6 +4,8 @@ import { useEffect } from "react"
 import type { Prize } from "@/types/prize"
 import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
+import EVoucher from "@/components/e-voucher";
+import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
 interface PrizePopupProps {
   prize: Prize
@@ -21,13 +23,14 @@ export function PrizePopup({ prize, onClose }: PrizePopupProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="bg-white rounded-2xl p-8 max-w-md w-full relative shadow-2xl animate-in zoom-in-95 duration-300 border-4 border-pink-200">
+      <div className="bg-white rounded-2xl p-3 max-w-4xl w-full relative shadow-2xl animate-in zoom-in-95 duration-300 border-4 border-pink-200">
         <Button variant="ghost" size="icon" className="absolute top-2 right-2" onClick={onClose}>
           <X className="h-4 w-4" />
         </Button>
+        <div className={'h-[70px]'}></div>
 
-        <div className="text-center">
-          <div className="mb-4 animate-bounce">
+        <div className="text-center ">
+          <div className="mb-4 animate-bounce ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="48"
@@ -47,23 +50,12 @@ export function PrizePopup({ prize, onClose }: PrizePopupProps) {
             Chúc mừng!
           </h2>
 
-          {/* Use popupTitle instead of name */}
-          <div
-            className="text-xl font-semibold mb-4 animate-pulse"
-            dangerouslySetInnerHTML={{ __html: prize.popupTitle }}
-          />
+          {/*<div className="mb-6 text-center" dangerouslySetInnerHTML={{ __html: prize.description }} />*/}
 
-          {prize.imageUrl && (
-            <div className="mb-6 flex justify-center">
-              <img
-                src={prize.imageUrl || "/placeholder.svg"}
-                alt="Prize"
-                className="max-w-[200px] max-h-[200px] object-contain rounded-lg"
-              />
-            </div>
-          )}
-
-          <div className="mb-6" dangerouslySetInnerHTML={{ __html: prize.description }} />
+          <div className={'flex md:justify-between md:flex-row flex-col justify-center items-center mb-5'}>
+            {prize.eVoucher && prize.eVoucher != '' && <EVoucher text={prize.eVoucher}></EVoucher>}
+              <img src={prize.iconImage} width={200} alt={prize.wheelDisplayName}/>
+          </div>
 
           <Button
             onClick={onClose}

@@ -7,6 +7,7 @@ import { PrizePopup } from "@/components/prize-popup"
 import type { Prize, SpinResult, WheelConfig } from "@/types/prize"
 import { StorageService } from "@/services/storage-service"
 import { StatisticsModal } from "@/components/statistics-modal"
+import {createDealBitrix24} from "@/lib/utils";
 
 export default function LuckyWheel() {
   const [prizes, setPrizes] = useState<Prize[]>([])
@@ -38,7 +39,7 @@ export default function LuckyWheel() {
     }
   }
 
-  const handleSpinEnd = (prize: Prize) => {
+  const handleSpinEnd = async (prize: Prize) => {
     setIsSpinning(false)
     setSelectedPrize(prize)
     setShowPopup(true)
@@ -51,9 +52,21 @@ export default function LuckyWheel() {
         name: formData.name || "",
         email: formData.email || "",
         phone: formData.phone || "",
-        school: formData.school,
-        class: formData.class,
       },
+    })
+
+    console.log({
+      fullName: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      prizeName: prize.nameBitrix || prize.wheelDisplayName
+    })
+
+    await createDealBitrix24({
+      fullName: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      prizeName: prize.nameBitrix || prize.wheelDisplayName
     })
 
     // Update local state
@@ -63,7 +76,7 @@ export default function LuckyWheel() {
   const handleClosePopup = () => {
     setShowPopup(false)
     if (formRef.current) {
-      formRef.current.reset()
+      // formRef.current.reset()
     }
   }
 
@@ -73,8 +86,8 @@ export default function LuckyWheel() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 flex-col-reverse md:flex-row relative z-10 items-center">
-      <div className="w-full">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 flex-col-reverse md:flex-row relative z-10 items-center justify-center">
+      <div className="w-full max-w-lg">
           <h2 className="text-2xl font-semibold mb-2">Hướng dẫn</h2>
           <div className="w-full bg-white shadow-lg p-4"><p className="mb-2"><b>Bước 1:</b> Điền thông tin vào form đăng ký để nhận 1 lượt quay và bấm quay ngay.</p></div>
           <div className="w-full bg-white shadow-lg p-4 mt-3"><p className="mb-2"><b>Bước 2:</b> Kiểm tra email vừa đăng ký để nhận quà xinh cho bé.</p></div>

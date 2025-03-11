@@ -31,8 +31,6 @@ export const RegistrationForm = forwardRef<{ reset: () => void }, RegistrationFo
         name: "",
         email: "",
         phone: "",
-        school: "",
-        class: "",
       },
     })
 
@@ -88,33 +86,8 @@ export const RegistrationForm = forwardRef<{ reset: () => void }, RegistrationFo
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="school"
-            render={({ field }) => (
-              <FormItem className="space-y-1">
-                <FormLabel className="text-sm">Trường học (không bắt buộc)</FormLabel>
-                <FormControl>
-                  <Input placeholder="Nhập tên trường học" {...field} className="h-9 text-sm" />
-                </FormControl>
-                <FormMessage className="text-xs" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="class"
-            render={({ field }) => (
-              <FormItem className="space-y-1">
-                <FormLabel className="text-sm">Lớp (không bắt buộc)</FormLabel>
-                <FormControl>
-                  <Input placeholder="Nhập lớp" {...field} className="h-9 text-sm" />
-                </FormControl>
-                <FormMessage className="text-xs" />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="w-full mt-4 animate-pulse hover:animate-none" disabled={isSpinning}>
+
+          <Button type="submit" className="w-full !mt-5 animate-pulse hover:animate-none" disabled={isSpinning}>
             {isSpinning ? "Đang quay..." : "Quay Ngay"}
           </Button>
         </form>

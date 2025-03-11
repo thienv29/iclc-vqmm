@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
 const inter = Inter({ subsets: ["latin"] })
 

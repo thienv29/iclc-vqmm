@@ -1,6 +1,6 @@
 "use client"
 
-import { Gift, Settings, BarChart3 } from "lucide-react"
+import { Gift, Settings, BarChart3, HardDrive } from "lucide-react"
 
 interface AdminSidebarProps {
   activeTab: string
@@ -12,8 +12,8 @@ export function AdminSidebar({ activeTab, setActiveTab }: AdminSidebarProps) {
     { id: "prizes", label: "Phần Thưởng", icon: <Gift size={20} /> },
     { id: "settings", label: "Cài Đặt", icon: <Settings size={20} /> },
     { id: "statistics", label: "Thống Kê", icon: <BarChart3 size={20} /> },
+    { id: "import", label: "Dữ liệu", icon: <HardDrive size={20} /> },
   ]
-
   return (
     <aside className="w-64 bg-white shadow-md p-6 min-h-[calc(100vh-4rem)]">
       <nav>
