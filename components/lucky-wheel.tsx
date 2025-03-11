@@ -96,22 +96,22 @@ export default function LuckyWheel() {
                 <h2 className="text-2xl font-semibold mb-3 text-[#16177b]">📌 Lưu ý</h2>
                 <div className="w-full bg-gray-50 shadow-lg p-5 mt-3 rounded-lg border border-gray-200">
                     <ul className="space-y-2 text-gray-700">
-                        <li className="flex items-start"><span className="mr-2">✅</span> Chương trình chỉ diễn ra duy
+                        <li className=""><span className="mr-2">✅</span> Chương trình chỉ diễn ra duy
                             nhất ngày&nbsp;<b>20/03/2025</b>.
                         </li>
-                        <li className="flex items-start"><span className="mr-2">✅</span> Mỗi số điện thoại chỉ được
+                        <li className=""><span className="mr-2">✅</span> Mỗi số điện thoại chỉ được
                             quay&nbsp;<b>01 lần</b>.
                         </li>
-                        <li className="flex items-start"><span className="mr-2">🎁</span> Quà tặng hiện vật sẽ được nhận
+                        <li className=""><span className="mr-2">🎁</span> Quà tặng hiện vật sẽ được nhận
                             trực tiếp tại quầy.
                         </li>
-                        <li className="flex items-start"><span className="mr-2">📧</span> Quà tặng&nbsp;<b>E-voucher</b>&nbsp;sẽ
+                        <li className=""><span className="mr-2">📧</span> Quà tặng&nbsp;<b>E-voucher</b>&nbsp;sẽ
                             nhận qua email.
                         </li>
                     </ul>
                 </div>
             </div>
-            <div className="flex justify-center items-center order-2 md:order-1">
+            <div className="flex justify-center items-center order-2 md:order-1 z-10">
                 <div className="relative">
                     <div
                         className="absolute -inset-4 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 opacity-75 blur-lg animate-pulse"></div>
