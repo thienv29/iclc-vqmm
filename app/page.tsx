@@ -23,10 +23,12 @@ export default function Home() {
             </div>
 
             <div className="container mx-auto relative z-10">
-                <h1 onDoubleClick={handleDoubleClick} className=" leading-[3.5rem] text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent drop-shadow-sm">
+                <h1 onDoubleClick={handleDoubleClick}
+                    className="leading-[3.5rem] text-4xl font-bold text-center mb-2 text-[#16177b] drop-shadow-sm">
                     VÒNG QUAY MAY MẮN
                 </h1>
-                <h1 onDoubleClick={handleDoubleClick} className="leading-[3.5rem] text-4xl font-bold text-center mb-8 bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 bg-clip-text text-transparent drop-shadow-sm">
+                <h1 onDoubleClick={handleDoubleClick}
+                    className="leading-[3.5rem] text-4xl font-bold text-center mb-8 text-[#16177b] drop-shadow-sm">
                     CHUYỂN ĐỘNG CÙNG GIÁO DỤC SỐ
                 </h1>
                 <LuckyWheel/>

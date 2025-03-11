@@ -211,6 +211,7 @@ export function Wheel({prizes, config, isSpinning, onSpinEnd}: WheelProps) {
             const imgSize = centerRadius * 1.8 // Make image slightly larger than the circle
 
             // Draw the image centered
+            ctx.fillStyle = "#FFFFFF"
             ctx.drawImage(centerImg, centerX - imgSize / 2, centerY - imgSize / 2, imgSize, imgSize)
         } else {
             // Fallback to drawing a cute face if no image is available or failed to load

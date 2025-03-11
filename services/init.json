@@ -1012,7 +1012,7 @@
     }
   ],
   "config": {
-    "centerImage": "/logox1.png",
+    "centerImage": "/logox.png",
     "backgroundColor": "#FFFFFF",
     "borderColor": "#9932CC",
     "pointerColor": "#FF1493"

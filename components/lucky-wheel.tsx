@@ -12,7 +12,7 @@ import {createDealBitrix24} from "@/lib/utils";
 export default function LuckyWheel() {
   const [prizes, setPrizes] = useState<Prize[]>([])
   const [wheelConfig, setWheelConfig] = useState<WheelConfig>({
-    centerImage: "/logox1.png", // Sử dụng placeholder thay vì URL không tồn tại
+    centerImage: "/logox.png", // Sử dụng placeholder thay vì URL không tồn tại
     borderColor: "#FF9FF3",
     pointerColor: "#FF1493",
   })
@@ -93,10 +93,12 @@ export default function LuckyWheel() {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 flex-col-reverse md:flex-row relative z-10 items-center justify-center">
       <div className="w-full max-w-lg">
           <h2 className="text-2xl font-semibold mb-2">Lưu ý</h2>
-          <div className="w-full bg-white shadow-lg p-4 mt-3"><p className="mb-2">- Chương trình chỉ diễn ra duy nhất ngày 21/03/2025.</p></div>
-          <div className="w-full bg-white shadow-lg p-4 mt-3"><p className="mb-2">- Mỗi số điện thoại chỉ được quay 01 lần.</p></div>
-          <div className="w-full bg-white shadow-lg p-4 mt-3"><p className="mb-2">- Quà tặng hiện vật sẽ được nhận trực tiếp tại quầy.</p></div>
-          <div className="w-full bg-white shadow-lg p-4 mt-3"><p className="mb-2">- Quà tặng E-voucher sẽ nhận qua email.</p></div>
+          <div className="w-full bg-white shadow-lg p-4 mt-3">
+            <p className="mb-2">- Chương trình chỉ diễn ra duy nhất ngày 21/03/2025.</p>
+            <p className="mb-2">- Mỗi số điện thoại chỉ được quay 01 lần.</p>
+            <p className="mb-2">- Quà tặng hiện vật sẽ được nhận trực tiếp tại quầy.</p>
+            <p className="mb-2">- Quà tặng E-voucher sẽ nhận qua email.</p>
+          </div>
         </div>
       <div className="flex justify-center items-center order-2 md:order-1">
         <div className="relative">
