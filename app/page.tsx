@@ -1,8 +1,32 @@
 "use client"
 import LuckyWheel from "@/components/lucky-wheel"
 import {useRouter} from "next/navigation";
+import {useEffect} from "react";
 
 export default function Home() {
+    useEffect(() => {
+        const handleMessage = (event: MessageEvent) => {
+            // Kiểm tra xem tin nhắn đến từ domain hợp lệ
+            if (event.origin !== "https://i-clc.edu.vn") return;
+
+            // Nếu action là scrollTo, thực hiện cuộn tới phần tử có id="form-register"
+            if (event.data.action === "scrollTo") {
+                const targetElement = document.getElementById(event.data.target);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+        };
+
+        // Lắng nghe sự kiện message
+        window.addEventListener("message", handleMessage);
+
+        // Cleanup event khi component unmount
+        return () => {
+            window.removeEventListener("message", handleMessage);
+        };
+    }, []);
+
     const router = useRouter();
 
     const handleDoubleClick = () => {
