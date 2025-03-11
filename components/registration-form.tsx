@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils"
 
 const formSchema = z.object({
     name: z.string().min(2, { message: "Tên phải có ít nhất 2 ký tự." }),
-    email: z.string().email({ message: "Vui lòng nhập địa chỉ email hợp lệ." }),
+    email: z.string().optional(),
     phone: z.string().min(10, { message: "Vui lòng nhập số điện thoại hợp lệ." }),
     booth: z.string({
         required_error: "Vui lòng chọn một gian hàng.",
