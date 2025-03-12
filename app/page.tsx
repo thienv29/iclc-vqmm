@@ -2,9 +2,11 @@
 import LuckyWheel from "@/components/lucky-wheel"
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
+import {StorageService} from "@/services/storage-service";
 
 export default function Home() {
     useEffect(() => {
+        StorageService.resetToDefault()
         const handleMessage = (event: MessageEvent) => {
             // Kiểm tra xem tin nhắn đến từ domain hợp lệ
             console.log(event)
