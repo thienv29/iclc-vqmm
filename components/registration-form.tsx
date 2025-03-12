@@ -132,7 +132,7 @@ export const RegistrationForm = forwardRef<{ reset: () => void }, RegistrationFo
                             onClick={() => toggleSection("interests")}
                             className="flex justify-between items-center w-full p-2 text-left text-sm font-medium"
                         >
-                            <span>Bạn quan tâm đến sản phẩm nào? </span>
+                            <span>Ông/Bà quan tâm đến sản phẩm nào? </span>
                             <span className="flex items-center">
                 {form.getValues("interests")?.length > 0 && (
                     <span className="mr-2 text-xs text-muted-foreground">
