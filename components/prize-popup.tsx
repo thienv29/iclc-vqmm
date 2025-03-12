@@ -37,8 +37,8 @@ export function PrizePopup({ prize, user, onClose }: PrizePopupProps) {
 
           {/*<div className="mb-6 text-center" dangerouslySetInnerHTML={{ __html: prize.description }} />*/}
           <div className="mb-6 text-center">
-            <p className="text-xl">Chúc mừng Ông/ Bà <span className='font-bold'>{user.name}</span> đã nhận Giải
-              <span dangerouslySetInnerHTML={{ __html: prize.wheelDisplayName }}/>
+            <p className="text-xl">Chúc mừng Ông/ Bà <span className='font-bold'>{user.name}</span> đã nhận <br/>
+              <span dangerouslySetInnerHTML={{ __html: prize.wheelDisplayName }} />
             </p>
             <p className="text-sm">Thời hạn sử dụng: Đến hết ngày 20/04/2025</p>
           </div>
