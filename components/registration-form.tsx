@@ -16,9 +16,7 @@ const formSchema = z.object({
     name: z.string().min(2, { message: "Tên phải có ít nhất 2 ký tự." }),
     email: z.string().email({ message: "Vui lòng nhập địa chỉ email hợp lệ." }),
     phone: z.string().min(10, { message: "Vui lòng nhập số điện thoại hợp lệ." }),
-    booth: z.string({
-        required_error: "Vui lòng chọn một gian hàng.",
-    }),
+    booth: z.string().optional(),
     interests: z.array(z.string()).min(1, {
         message: "Vui lòng chọn ít nhất một sản phẩm.",
     }),
@@ -126,61 +124,6 @@ export const RegistrationForm = forwardRef<{ reset: () => void }, RegistrationFo
                             </FormItem>
                         )}
                     />
-
-
-                    <div className="border rounded-md">
-                        <button
-                            type="button"
-                            onClick={() => toggleSection("booth")}
-                            className="flex justify-between items-center w-full p-2 text-left text-sm font-medium"
-                        >
-                            <span>Bạn đang tham quan gian hàng nào?</span>
-                            <span className="flex items-center">
-                {form.getValues("booth") && <span className="mr-2 text-xs text-muted-foreground">Đã chọn</span>}
-                                {expandedSection === "booth" ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-              </span>
-                        </button>
-
-                        <div
-                            className={cn(
-                                "overflow-hidden transition-all duration-300",
-                                expandedSection === "booth" ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0",
-                            )}
-                        >
-                            <div className="p-2 pt-0 border-t">
-                                <FormField
-                                    control={form.control}
-                                    name="booth"
-                                    render={({ field }) => (
-                                        <FormItem className="space-y-1">
-                                            <FormControl>
-                                                <RadioGroup
-                                                    onValueChange={(value) => {
-                                                        field.onChange(value)
-                                                    }}
-                                                    value={field.value}
-                                                    className="flex flex-col space-y-1"
-                                                >
-                                                    {boothOptions.map((option, index) => (
-                                                        <FormItem
-                                                            key={option}
-                                                            className={`flex items-center space-x-2 space-y-0 ${index === 0 ? "mt-3" : ""}`}
-                                                        >
-                                                            <FormControl>
-                                                                <RadioGroupItem value={option} />
-                                                            </FormControl>
-                                                            <FormLabel className="text-sm font-normal">{option}</FormLabel>
-                                                        </FormItem>
-                                                    ))}
-                                                </RadioGroup>
-                                            </FormControl>
-                                            <FormMessage className="text-xs" />
-                                        </FormItem>
-                                    )}
-                                />
-                            </div>
-                        </div>
-                    </div>
 
                     {/* Collapsible Interests Selection */}
                     <div className="border rounded-md">
