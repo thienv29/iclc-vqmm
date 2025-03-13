@@ -7,8 +7,9 @@ import {PrizePopup} from "@/components/prize-popup"
 import type {Prize, SpinResult, WheelConfig} from "@/types/prize"
 import {StorageService} from "@/services/storage-service"
 import {StatisticsModal} from "@/components/statistics-modal"
-import {createDealBitrix24} from "@/lib/utils";
-
+import {createDealBitrix24, isRolledByPhone} from "@/lib/utils";
+import { htmlToText } from 'html-to-text';
+import {toast} from "sonner";
 export default function LuckyWheel() {
     const [prizes, setPrizes] = useState<Prize[]>([])
     const [wheelConfig, setWheelConfig] = useState<WheelConfig>({
@@ -32,8 +33,18 @@ export default function LuckyWheel() {
         setWheelConfig(data.config)
     }, [])
 
-    const handleFormSubmit = (data: Record<string, string | string[]>) => {
+
+
+    const handleFormSubmit = async (data: Record<string, string | string[]>) => {
         if (!isSpinning) {
+            if (await isRolledByPhone(data['phone'] as string)) {
+                console.log("Dxxx")
+                toast.error("Bạn đã quay rồi", {
+                    position: "top-center",
+                    style: {fontSize: '20px', fontWeight: 'bold', textAlign: 'center', color: "red"}
+                })
+                return
+            }
             setFormData(data)
             setIsSpinning(true)
         }
@@ -69,6 +80,7 @@ export default function LuckyWheel() {
             phone: formData.phone,
             email: formData.email,
             booth: formData.booth,
+            description: htmlToText(prize.description),
             interests: formData.interests,
             prizeName: prize.nameBitrix || prize.wheelDisplayName
         })

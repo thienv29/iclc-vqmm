@@ -22,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>
+      <Toaster />
     </html>
   )
 }
@@ -29,3 +30,4 @@ export default function RootLayout({
 
 
 import './globals.css'
+import {Toaster} from "sonner";
