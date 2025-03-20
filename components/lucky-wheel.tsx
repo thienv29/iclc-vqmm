@@ -108,9 +108,7 @@ export default function LuckyWheel() {
                 <h2 className="text-2xl font-semibold mb-3 text-[#16177b]">📌 Lưu ý</h2>
                 <div className="w-full bg-gray-50 shadow-lg p-5 mt-3 rounded-lg border border-gray-200">
                     <ul className="space-y-2 text-gray-700">
-                        <li className=""><span className="mr-2">✅</span> Chương trình chỉ diễn ra duy
-                            nhất ngày&nbsp;<b>20/03/2025</b>.
-                        </li>
+                        
                         <li className=""><span className="mr-2">✅</span> Mỗi số điện thoại chỉ được
                             quay&nbsp;<b>01 lần</b>.
                         </li>
