@@ -15,7 +15,8 @@ import { cn } from "@/lib/utils"
 const formSchema = z.object({
     name: z.string().min(2, { message: "Tên phải có ít nhất 2 ký tự." }),
     email: z.string().email({ message: "Vui lòng nhập địa chỉ email hợp lệ." }),
-    phone: z.string().min(10, { message: "Vui lòng nhập số điện thoại hợp lệ." }),
+    phone: z.string()
+    .regex(/^\d{10,11}$/, { message: "Vui lòng nhập số điện thoại hợp lệ (10-11 chữ số)." }),
     booth: z.string().optional(),
     interests: z.array(z.string()).min(1, {
         message: "Vui lòng chọn ít nhất một sản phẩm.",
