@@ -77,6 +77,8 @@ export default function LuckyWheel() {
 
         await createDealBitrix24({
             fullName: formData.name,
+            school: formData.school,
+            schoolType: formData.schoolType,
             phone: formData.phone,
             email: formData.email,
             booth: formData.booth,
