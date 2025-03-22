@@ -58,7 +58,7 @@ export default function Home() {
                     className="leading-[3.5rem] text-4xl font-bold text-center mb-8 text-[#16177b] drop-shadow-sm">
                     CHUYỂN ĐỘNG CÙNG GIÁO DỤC SỐ
                 </h1>
-                <LuckyWheel/>
+                <LuckyWheel typeWheel='wheel-1'/>
             </div>
         </main>
     )
