@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
+import {Toaster} from "sonner";
 const inter = Inter({ subsets: ["latin"] })
 
 // Update the metadata to Vietnamese
@@ -21,13 +22,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>{children}
       <Toaster />
+        
+      </body>
     </html>
   )
 }
 
 
-
-import './globals.css'
-import {Toaster} from "sonner";
