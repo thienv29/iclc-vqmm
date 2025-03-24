@@ -5,7 +5,7 @@ function WheelInfo2() {
       <div className='w-full bg-gray-50 shadow-lg p-5 mt-3 rounded-lg border border-gray-200'>
         <ul className='space-y-2 text-gray-700'>
           <li className=''>
-            <span className='mr-2'>✅</span> Mỗi số điện thoại chỉ được aaaaaaaaa
+            <span className='mr-2'>✅</span> Mỗi số điện thoại chỉ được 
             quay&nbsp;<b>01 lần</b>.
           </li>
           <li className=''>

@@ -1,6 +1,6 @@
 import type { Prize, SpinResult, WheelConfig, WheelData } from '@/types/prize'
 import DB from '@/services/init.json'
-import DB2 from '@/services/vq2.json'
+import DB2 from '@/services/cc.json'
 const STORAGE_KEY = 'lucky_wheel_data'
 
 // Initialize with empty spin results

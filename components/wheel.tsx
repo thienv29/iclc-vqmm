@@ -146,25 +146,39 @@ export function Wheel({prizes, config, isSpinning, onSpinEnd}: WheelProps) {
             if (prize.imageUrl && prizeImagesRef.current[prize.id]) {
                 const img = prizeImagesRef.current[prize.id]
                 if (img) {
-                    const imgSize = 90 // Size of the image
-                    const imgDistance = radius * 0.6 // Distance from center
-
-                    // Calculate position for the image
+                    const maxImgSize = 160 // Kích thước tối đa của hình ảnh
+                    const imgDistance = radius * 0.6 // Khoảng cách từ tâm
+            
+                    // Tính tỷ lệ để giữ nguyên khung hình
+                    const imgRatio = img.width / img.height
+                    let imgWidth, imgHeight
+                    
+                    if (imgRatio >= 1) { // Ảnh ngang hoặc vuông
+                        imgWidth = maxImgSize
+                        imgHeight = maxImgSize / imgRatio
+                    } else { // Ảnh dọc
+                        imgHeight = maxImgSize
+                        imgWidth = maxImgSize * imgRatio
+                    }
+            
+                    // Tính vị trí cho hình ảnh
                     const imgAngle = startAngle + sliceAngle / 2
                     const imgX = centerX + Math.cos(imgAngle) * imgDistance
                     const imgY = centerY + Math.sin(imgAngle) * imgDistance
-
-                    // Save context state
+            
+                    // Lưu trạng thái context
                     ctx.save()
-
-                    // Translate to the image position
+            
+                    // Di chuyển đến vị trí hình ảnh
                     ctx.translate(imgX, imgY)
-
-                    // Rotate to align with the segment
-                    ctx.rotate(imgAngle);                 // Draw the image centered
-                    ctx.drawImage(img, -imgSize / 2, -imgSize / 2, imgSize, imgSize)
-
-                    // Restore context state
+            
+                    // Xoay để căn chỉnh với phân đoạn
+                    ctx.rotate(imgAngle)
+                    
+                    // Vẽ hình ảnh đã căn chỉnh
+                    ctx.drawImage(img, -imgWidth / 2, -imgHeight / 2, imgWidth, imgHeight)
+            
+                    // Khôi phục trạng thái context
                     ctx.restore()
                 }
             }

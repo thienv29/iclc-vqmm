@@ -51,15 +51,11 @@ export default function Wheel() {
       <div className=' mx-auto relative z-10'>
         <h1
           onDoubleClick={handleDoubleClick}
-          className='leading-[3.5rem] text-4xl font-bold text-center mb-2 text-[#16177b] drop-shadow-sm'
+          className='leading-[3.5rem] text-4xl font-bold text-center mb-2 text-[#16177b] drop-shadow-sm mb-10'
         >
-          VÒNG QUAY MAY MẮN
-        </h1>
-        <h1
-          onDoubleClick={handleDoubleClick}
-          className='leading-[3.5rem] text-4xl font-bold text-center mb-8 text-[#16177b] drop-shadow-sm'
-        >
-          CHUYỂN ĐỘNG CÙNG GIÁO DỤC SỐ
+          VÒNG QUAY MAY MẮN CÙNG GSN
+
+
         </h1>
         <LuckyWheel typeWheel={typeWheel} />
       </div>
