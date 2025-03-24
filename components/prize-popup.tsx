@@ -43,7 +43,7 @@ export function PrizePopup({prize, user, onClose}: PrizePopupProps) {
                             nhận <br/>
                             <span dangerouslySetInnerHTML={{__html: prize.wheelDisplayName}}/>
                         </p>
-                        <p className="text-sm">Thời hạn sử dụng: Đến hết ngày 20/04/2025</p>
+                        <p className="text-sm">{prize.note}</p>
                     </div>
 
                     <div className={'flex md:justify-between md:flex-row flex-col justify-center items-center mb-5'}>

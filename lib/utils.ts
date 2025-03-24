@@ -39,7 +39,7 @@ const API_BASE = 'https://anhnguiclc.com/rest/1/dcqn591zbut35f5u'
 export async function isRolledByPhone(phoneNumber: string): Promise<boolean> {
   try {
     const dealResponse = await fetch(
-      `${API_BASE}/crm.deal.list.json?filter[CATEGORY_ID]=56&filter[UF_CRM_DEAL_1717076519247]=${phoneNumber}`
+      `${API_BASE}/crm.deal.list.json?filter[CATEGORY_ID]=66&filter[UF_CRM_DEAL_1717076519247]=${phoneNumber}`
     )
     const dealData = await dealResponse.json()
     const deals = dealData.result || []
@@ -64,7 +64,7 @@ export async function createDealBitrix24(order: any) {
           TITLE: `${order.fullName} quay trúng ${
             order.nameBitrix || order.prizeName
           }`,
-          CATEGORY_ID: 56,
+          CATEGORY_ID: 66,
           CONTACT_ID: contactResult.result,
           COMMENTS: order.description.split('và')[0],
           UF_CRM_1637679301: 'Vòng Quay May Mắn ',
