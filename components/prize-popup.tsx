@@ -52,7 +52,6 @@ export function PrizePopup({prize, user, onClose}: PrizePopupProps) {
                             <div><Plus className={'text-xl'}/></div>
                             <img src={prize.iconImage} className='h-[300px]' alt={prize.wheelDisplayName}/>
                         </>}
-
                     </div>
 
                     <Button

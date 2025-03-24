@@ -80,6 +80,7 @@ export default function LuckyWheel({ typeWheel }: { typeWheel: string }) {
       description: htmlToText(prize.description),
       interests: formData.interests,
       prizeName: prize.nameBitrix || prize.wheelDisplayName,
+      note: prize.note,
     })
   }
 
