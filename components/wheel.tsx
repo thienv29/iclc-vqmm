@@ -2,15 +2,17 @@
 
 import {useEffect, useRef, useState} from "react"
 import type {Prize, WheelConfig} from "@/types/prize"
+import {checkGiai} from "@/lib/utils";
 
 interface WheelProps {
     prizes: Prize[]
     config: WheelConfig
     isSpinning: boolean
-    onSpinEnd: (prize: Prize) => void
+    onSpinEnd: (prize: Prize) => void,
+    dataGiai?: any
 }
 
-export function Wheel({prizes, config, isSpinning, onSpinEnd}: WheelProps) {
+export function Wheel({prizes, config, isSpinning, onSpinEnd, dataGiai}: WheelProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const [rotation, setRotation] = useState(0)
     const [selectedPrizeIndex, setSelectedPrizeIndex] = useState<number | null>(null)
@@ -325,17 +327,22 @@ export function Wheel({prizes, config, isSpinning, onSpinEnd}: WheelProps) {
             return
         }
 
-        // Determine the winning prize based on probability
-        const totalProbability = prizes.reduce((sum, prize) => sum + prize.probability, 0)
-        const randomValue = Math.random() * totalProbability
-        let cumulativeProbability = 0
-        let winningIndex = 0
+        const {dautu, quocte} = dataGiai;
+        const totalProbability = prizes.reduce((sum, prize) => sum + (prize.probabilityActual || prize.probability), 0)
+        let winningIndex = -1;
 
-        for (let i = 0; i < prizes.length; i++) {
-            cumulativeProbability += prizes[i].probability
-            if (randomValue <= cumulativeProbability) {
-                winningIndex = i
-                break
+        while (winningIndex === -1 ||
+        ( prizes[winningIndex].wheelDisplayName.includes("Đầu Tư") && dautu >= 30) || ( prizes[winningIndex].wheelDisplayName.includes("Quốc Tế") && quocte >= 30)
+            ) {
+            const randomValue = Math.random() * totalProbability;
+            let cumulativeProbability = 0;
+
+            for (let i = 0; i < prizes.length; i++) {
+                cumulativeProbability += (prizes[i].probabilityActual || prizes[i].probability);
+                if (randomValue <= cumulativeProbability) {
+                    winningIndex = i;
+                    break;
+                }
             }
         }
 

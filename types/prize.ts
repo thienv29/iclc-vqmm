@@ -8,7 +8,9 @@ export interface Prize {
   note: string
   backgroundColor?: string
   imageUrl: string,
-  nameBitrix: string
+  nameBitrix: string,
+  probabilityActual?: number,
+  maximum?: number,
 }
 
 export interface SpinResult {

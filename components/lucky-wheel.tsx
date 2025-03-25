@@ -7,7 +7,7 @@ import { PrizePopup } from '@/components/prize-popup'
 import type { Prize, SpinResult, WheelConfig } from '@/types/prize'
 import { StorageService } from '@/services/storage-service'
 import { StatisticsModal } from '@/components/statistics-modal'
-import { createDealBitrix24, isRolledByPhone } from '@/lib/utils'
+import {checkGiai, createDealBitrix24, isRolledByPhone} from '@/lib/utils'
 import { htmlToText } from 'html-to-text'
 import { toast } from 'sonner'
 import { RegistrationForm2 } from './wheel2/registration-form-2'
@@ -26,6 +26,7 @@ export default function LuckyWheel({ typeWheel }: { typeWheel: string }) {
   const [showStats, setShowStats] = useState(false)
   const [spinResults, setSpinResults] = useState<SpinResult[]>([])
   const [formData, setFormData] = useState<any>({})
+  const [dataGiai, setDataGiai] = useState<any>({})
   const formRef = useRef<{ reset: () => void } | null>(null)
 
   // Load data from localStorage on component mount
@@ -38,6 +39,8 @@ export default function LuckyWheel({ typeWheel }: { typeWheel: string }) {
 
   const handleFormSubmit = async (data: Record<string, string | string[]>) => {
     if (!isSpinning) {
+      const dataGiai = await checkGiai();
+      setDataGiai(dataGiai);
       if (await isRolledByPhone(data['phone'] as string)) {
         console.log('Dxxx')
         toast.error('Bạn đã quay rồi', {
@@ -105,6 +108,7 @@ export default function LuckyWheel({ typeWheel }: { typeWheel: string }) {
           <Wheel
             prizes={prizes}
             config={wheelConfig}
+            dataGiai={dataGiai}
             isSpinning={isSpinning}
             onSpinEnd={handleSpinEnd}
           />

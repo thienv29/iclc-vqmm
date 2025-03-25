@@ -50,6 +50,26 @@ export async function isRolledByPhone(phoneNumber: string): Promise<boolean> {
   }
 }
 
+
+export async function checkGiai(): Promise<any> {
+  try {
+    const dealResponse = await fetch(
+        `${API_BASE}/crm.deal.list.json?filter[CATEGORY_ID]=66`
+    )
+    const dealData = await dealResponse.json()
+    const deals = dealData.result || []
+    return {
+      dautu:deals.filter((item: any) => item.TITLE.includes("Đầu Tư")).length,
+      quocte:deals.filter((item: any) => item.TITLE.includes("Trải Nghiệm Quốc Tế")).length
+    }
+
+  } catch (error) {
+    console.error('Lỗi khi gọi API:', error)
+    return false
+  }
+}
+
+
 export async function createDealBitrix24(order: any) {
   const labels = getInterestLabels(order.interests)
   try {
