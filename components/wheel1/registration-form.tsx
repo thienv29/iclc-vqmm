@@ -18,7 +18,13 @@ import { Input } from '@/components/ui/input'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Checkbox } from '@/components/ui/checkbox'
 import { cn } from '@/lib/utils'
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Tên phải có ít nhất 2 ký tự.' }),
   email: z
@@ -35,6 +41,9 @@ const formSchema = z.object({
     }),
   booth: z.string().optional(),
   interests: z.array(z.string()).optional(),
+  role: z.enum(['Quý Thầy Cô', 'Quý Phụ huynh', 'Khác'], {
+    required_error: 'Vui lòng chọn một tùy chọn.',
+  }),
 })
 
 type FormValues = z.infer<typeof formSchema>
@@ -152,6 +161,28 @@ export const RegistrationForm = forwardRef<
                   className='h-9 text-sm'
                 />
               </FormControl>
+              <FormMessage className='text-xs' />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='role'
+          render={({ field }) => (
+            <FormItem className='space-y-1'>
+              <FormLabel className='text-sm'>Ông/Bà là</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger className='h-9 text-sm'>
+                    <SelectValue placeholder='Chọn vai trò' />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value='Quý Thầy Cô'>Quý Thầy Cô</SelectItem>
+                  <SelectItem value='Quý Phụ huynh'>Quý Phụ huynh</SelectItem>
+                  <SelectItem value='Khác'>Khác</SelectItem>
+                </SelectContent>
+              </Select>
               <FormMessage className='text-xs' />
             </FormItem>
           )}

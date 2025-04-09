@@ -5,7 +5,7 @@ import { interestOptions } from '@/components/wheel1/registration-form'
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
-
+export const bitrixCategoryNumber = 69
 export async function addContact(order: any) {
   const contactApiUrl =
     'https://anhnguiclc.com/rest/1/z6j1e8kdzjcjegok/crm.contact.add.json'
@@ -39,7 +39,7 @@ const API_BASE = 'https://anhnguiclc.com/rest/1/dcqn591zbut35f5u'
 export async function isRolledByPhone(phoneNumber: string): Promise<boolean> {
   try {
     const dealResponse = await fetch(
-      `${API_BASE}/crm.deal.list.json?filter[CATEGORY_ID]=66&filter[UF_CRM_DEAL_1717076519247]=${phoneNumber}`
+      `${API_BASE}/crm.deal.list.json?filter[CATEGORY_ID]=${bitrixCategoryNumber}&filter[UF_CRM_DEAL_1717076519247]=${phoneNumber}`
     )
     const dealData = await dealResponse.json()
     const deals = dealData.result || []
@@ -54,7 +54,7 @@ export async function isRolledByPhone(phoneNumber: string): Promise<boolean> {
 export async function checkGiai(): Promise<any> {
   try {
     const dealResponse = await fetch(
-        `${API_BASE}/crm.deal.list.json?filter[CATEGORY_ID]=66`
+        `${API_BASE}/crm.deal.list.json?filter[CATEGORY_ID]=${bitrixCategoryNumber}`
     )
     const dealData = await dealResponse.json()
     const deals = dealData.result || []
@@ -84,7 +84,7 @@ export async function createDealBitrix24(order: any) {
           TITLE: `${order.fullName} quay trúng ${
             order.nameBitrix || order.prizeName
           }`,
-          CATEGORY_ID: 66,
+          CATEGORY_ID: bitrixCategoryNumber,
           CONTACT_ID: contactResult.result,
           COMMENTS: order.description.split('và')[0],
           UF_CRM_1637679301: 'Vòng Quay May Mắn ',
@@ -94,7 +94,8 @@ export async function createDealBitrix24(order: any) {
           UF_CRM_DEAL_1717076519247: order.phone,
           UF_CRM_6178C6D2EDA26: order.school,
           UF_CRM_1742537683: order.schoolType,
-          UF_CRM_1742859134: order.note
+          UF_CRM_1742859134: order.note,
+          UF_CRM_1744194486: order.role
         },
       }
 

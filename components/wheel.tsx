@@ -148,7 +148,7 @@ export function Wheel({prizes, config, isSpinning, onSpinEnd, dataGiai}: WheelPr
             if (prize.imageUrl && prizeImagesRef.current[prize.id]) {
                 const img = prizeImagesRef.current[prize.id]
                 if (img) {
-                    const maxImgSize = 172 // Kích thước tối đa của hình ảnh
+                    const maxImgSize = 100 // Kích thước tối đa của hình ảnh
                     const imgDistance = radius * 0.6 // Khoảng cách từ tâm
             
                     // Tính tỷ lệ để giữ nguyên khung hình

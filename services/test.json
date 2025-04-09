@@ -1,0 +1,129 @@
+{
+  "prizes": [
+    {
+      "id": "1",
+      "wheelDisplayName": "<p>Giải Ưu Đãi Đầu Tư</p>",
+      "description": "<p>Voucher phí thủ tục trị giá 2.000 USD và Móc khóa IZZY</p>",
+      "probability": 20,
+      "note": "Điều kiện khi đã được thẩm duyệt hồ sơ và đặt cọc cho dự án VIRADA. Không có giá trị quy đổi thành tiền mặt. Áp dụng đến ngày 15/04/2025",
+      "backgroundColor": "#5f2164",
+      "imageUrl": "",
+      "nameBitrix": "Ưu Đãi Đầu Tư 2.000",
+      "eVoucher": "Voucher phí thủ tục trị giá 2.000 USD",
+      "iconImage": "https://i-clc.edu.vn/wp-content/uploads/2025/03/Layer-1-4.png",
+      "probabilityActual": 4
+    },
+    {
+      "id": "2",
+      "wheelDisplayName": "<p>Giải Ưu Đãi Đầu Tư</p>",
+      "description": "<p>Voucher phí thủ tục trị giá 4.000 USD và Móc khóa IZZY</p>",
+      "probability": 20,
+      "note": "Điều kiện khi đã được thẩm duyệt hồ sơ và đặt cọc cho dự án VIRADA. Không có giá trị quy đổi thành tiền mặt. Áp dụng đến ngày 15/04/2025",
+      "backgroundColor": "#ffcc00",
+      "imageUrl":"",
+      "nameBitrix": "Ưu Đãi Đầu Tư 4.000",
+      "eVoucher": "Voucher phí thủ tục trị giá 4.000 USD",
+      "iconImage": "https://i-clc.edu.vn/wp-content/uploads/2025/03/Layer-1-4.png",
+      "probabilityActual": 4
+    },
+    {
+      "id": "3",
+      "wheelDisplayName": "<p>Giải Ưu Đãi Đầu Tư</p>",
+      "description": "<p>Voucher phí thủ tục trị giá 6.000 USD và Móc khóa IZZY</p>",
+      "probability": 20,
+      "note": "Điều kiện khi đã được thẩm duyệt hồ sơ và đặt cọc cho dự án VIRADA. Không có giá trị quy đổi thành tiền mặt. Áp dụng đến ngày 15/04/2025",
+      "backgroundColor": "#1aa754",
+      "imageUrl":"",
+      "nameBitrix": "Ưu Đãi Đầu Tư 6.000",
+      "eVoucher": "Voucher phí thủ tục trị giá 6.000 USD",
+      "iconImage": "https://i-clc.edu.vn/wp-content/uploads/2025/03/Layer-1-4.png",
+      "probabilityActual": 4
+    },
+    {
+      "id": "4",
+      "wheelDisplayName": "<p>Giải Ưu Đãi Đầu Tư</p>",
+      "description": "<p>Voucher phí thủ tục trị giá 8.000 USD và Móc khóa IZZY</p>",
+      "probability": 20,
+      "note": "Điều kiện khi đã được thẩm duyệt hồ sơ và đặt cọc cho dự án VIRADA. Không có giá trị quy đổi thành tiền mặt. Áp dụng đến ngày 15/04/2025",
+      "backgroundColor": "#ffcb09",
+      "imageUrl":"",
+      "nameBitrix": "Ưu Đãi Đầu Tư 8.000",
+      "eVoucher": "Voucher phí thủ tục trị giá 8.000 USD",
+      "iconImage": "https://i-clc.edu.vn/wp-content/uploads/2025/03/Layer-1-4.png",
+      "probabilityActual": 4
+    },
+    {
+      "id": "5",
+      "wheelDisplayName": "<p>Giải Ưu Đãi Đầu Tư</p>",
+      "description": "<p>Voucher phí thủ tục trị giá 10.000 USD và Móc khóa IZZY</p>",
+      "probability": 20,
+      "note": "Điều kiện khi đã được thẩm duyệt hồ sơ và đặt cọc cho dự án VIRADA. Không có giá trị quy đổi thành tiền mặt. Áp dụng đến ngày 15/04/2025",
+      "backgroundColor": "#5f2164",
+      "imageUrl":"",
+      "nameBitrix": "Ưu Đãi Đầu Tư 10.000",
+      "eVoucher": "Voucher phí thủ tục trị giá 10.000 USD",
+      "iconImage": "https://i-clc.edu.vn/wp-content/uploads/2025/03/Layer-1-4.png",
+      "probabilityActual": 4
+    },
+    {
+      "id": "6",
+      "wheelDisplayName": "<p>​<span style=\"color: rgb(8, 27, 58);font-size: 15px\">Giải Học Tập Toàn Cầu</span>​</p>",
+      "description": "<p>​<span style=\"color: rgb(8, 27, 58);font-size: 15px\">02 buổi học Tiếng Anh với GVVN eClass (30 phút/ buổi) và Móc khóa IZZY</span>​</p>",
+      "probability": 20,
+      "note": "Áp dụng đến 30/6/2025",
+      "backgroundColor": "#00aeef",
+      "imageUrl":"",
+      "nameBitrix": "Giải Học Tập Toàn Cầu",
+      "eVoucher": "Giảm 30% gói Sinh trắc học dấu vân tay",
+      "iconImage": "https://i-clc.edu.vn/wp-content/uploads/2025/03/Layer-1-4.png",
+      "probabilityActual": 20
+    },
+    {
+      "id": "7",
+      "wheelDisplayName": "<p>Giải Khám Phá Bản Thân</p>",
+      "description": "<p>01 E-voucher Giảm 30% gói Sinh trắc học dấu vân tay và 01 Móc khóa IZZY</p>",
+      "probability": 20,
+      "note": "Áp dụng đến 30/6/2025",
+      "backgroundColor": "#1aa754",
+      "imageUrl":"",
+      "nameBitrix": "Khám Phá Bản Thân",
+      "eVoucher": "Giảm 30% gói Sinh trắc học dấu vân tay",
+      "iconImage": "https://i-clc.edu.vn/wp-content/uploads/2025/03/Layer-1-4.png",
+      "probabilityActual": 20
+    },
+    {
+      "id": "8",
+      "wheelDisplayName": "<p>Giải Sẵn Sàng Chinh Phục</p>",
+      "description": "<p>Tặng bài test trình độ trị giá 300.000 VNĐ cho Khóa học Tiếng Anh nhu cầu cho cá nhân hoặc doanh nghiệp</p>",
+      "probability": 20,
+      "note": "Áp dụng đến 30/6/2025",
+      "backgroundColor": "#ffcb09",
+      "imageUrl": "",
+      "nameBitrix": "Sẵn Sàng Chinh Phục",
+      "eVoucher": "Bài test trình độ trị giá 300.000 VNĐ",
+      "iconImage": "",
+      "probabilityActual": 20
+    },
+    {
+      "id": "9",
+      "wheelDisplayName": "<p>Giải Trải Nghiệm Quốc Tế</p>",
+      "description": "<p>Cặp vé máy bay khứ hồi đi Mỹ tham quan dự án Virada</p>",
+      "probability": 20,
+      "note": "Điều kiện khi đã được thẩm duyệt hồ sơ và đặt cọc cho dự án VIRADA. Không có giá trị quy đổi thành tiền mặt hoặc có thể chuyển đổi thành giảm phí thủ tục với giá trị tương đương. Áp dụng đến 15/4/2025",
+      "backgroundColor": "#7ed957",
+      "imageUrl": "",
+      "nameBitrix": "Trải Nghiệm Quốc Tế",
+      "eVoucher": "Cặp vé máy bay khứ hồi đi Mỹ tham quan dự án Virada",
+      "iconImage": "",
+      "probabilityActual": 20
+    }
+  ],
+  "spinResults": [],
+  "config": {
+    "centerImage": "/logox.png",
+    "backgroundColor": "#FFFFFF",
+    "borderColor": "#9932CC",
+    "pointerColor": "#FF1493"
+  },
+  "lastUpdated": 1742809945442
+}

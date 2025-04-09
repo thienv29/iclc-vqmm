@@ -10,7 +10,7 @@
       "imageUrl": null,
       "nameBitrix": "Ưu Đãi Đầu Tư 2000",
       "eVoucher": "Voucher phí thủ tục trị giá 2.000 USD",
-      "iconImage": null
+      "iconImage": undefined
     },
     {
       "id": "3",
@@ -22,7 +22,7 @@
       "imageUrl": null,
       "nameBitrix": "Khám Phá Bản Thân",
       "eVoucher": "Giảm 30% gói Sinh trắc học dấu vân tay",
-      "iconImage": null
+      "iconImage": undefined
     },
     {
       "id": "4",
@@ -34,7 +34,7 @@
       "imageUrl": null,
       "nameBitrix": "Khám Phá Bản Thân",
       "eVoucher": "Giảm 30% gói Sinh trắc học dấu vân tay",
-      "iconImage": null
+      "iconImage": undefined
     },
     {
       "id": "5",
@@ -46,7 +46,7 @@
       "imageUrl": null,
       "nameBitrix": "Sẵn Sàng Chinh Phục",
       "eVoucher": "Bài test trình độ trị giá 300.000 VNĐ",
-      "iconImage": null
+      "iconImage": undefined
     },
     {
       "id": "6",
@@ -58,7 +58,7 @@
       "imageUrl": null,
       "nameBitrix": "Trải Nghiệm Quốc Tế",
       "eVoucher": "Cặp vé máy bay khứ hồi đi Mỹ tham quan dự án Virada",
-      "iconImage": null
+      "iconImage": undefined
     }
   ],
   "spinResults": [],

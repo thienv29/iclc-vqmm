@@ -3,7 +3,7 @@ export interface Prize {
   wheelDisplayName: string
   description: string
   eVoucher?: string
-  iconImage: string
+  iconImage?: string
   probability: number
   note: string
   backgroundColor?: string
