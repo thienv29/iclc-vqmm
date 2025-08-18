@@ -50,11 +50,13 @@ export default function Home() {
             </div>
 
             <div className=" mx-auto relative z-10">
-                <h1 onDoubleClick={handleDoubleClick}
+                <h1 
+                // onDoubleClick={handleDoubleClick}
                     className="leading-[3.5rem] text-4xl font-bold text-center mb-2 text-[#16177b] drop-shadow-sm">
                     VÒNG QUAY MAY MẮN
                 </h1>
-                <h1 onDoubleClick={handleDoubleClick}
+                <h1 
+                // onDoubleClick={handleDoubleClick}
                     className="leading-[3.5rem] text-4xl font-bold text-center mb-8 text-[#16177b] drop-shadow-sm">
                     CHUYỂN ĐỘNG CÙNG GIÁO DỤC SỐ
                 </h1>
