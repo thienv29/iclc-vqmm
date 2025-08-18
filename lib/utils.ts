@@ -5,7 +5,7 @@ import { interestOptions } from '@/components/wheel1/registration-form'
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
-export const bitrixCategoryNumber = 69
+export const bitrixCategoryNumber = 80
 export async function addContact(order: any) {
   const contactApiUrl =
     'https://anhnguiclc.com/rest/1/z6j1e8kdzjcjegok/crm.contact.add.json'

@@ -50,6 +50,12 @@ export function PrizeConfig({prizes, onPrizesChange}: PrizeConfigProps) {
         setEditingPrize({...editingPrize, probability})
     }
 
+    const handleProbabilityActualChange = (value: string) => {
+        if (!editingPrize) return
+        const probabilityActual = Number.parseInt(value, 10) || 0
+        setEditingPrize({...editingPrize, probabilityActual })
+    }
+
     const handleNoteChange = (value: string) => {
         if (!editingPrize) return
         setEditingPrize({...editingPrize, note: value})
@@ -255,6 +261,20 @@ export function PrizeConfig({prizes, onPrizesChange}: PrizeConfigProps) {
                                             <p className="text-xs text-gray-500 mt-1">
                                                 Tỉ lệ xuất hiện của phần thưởng này (tổng tỉ lệ của tất cả phần thưởng
                                                 nên bằng 100%)
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium mb-1">Số phần thưởng thực</label>
+                                            <Input
+                                                type="number"
+                                                value={editingPrize.probabilityActual}
+                                                onChange={(e) => handleProbabilityActualChange(e.target.value)}
+                                                min="0"
+                                                max="100"
+                                                className="border-2 focus:border-purple-500"
+                                            />
+                                            <p className="text-xs text-gray-500 mt-1">
+                                                Số phần thưởng thực tế sẽ được trao cho người dùng
                                             </p>
                                         </div>
                                     </div>

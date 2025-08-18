@@ -165,7 +165,7 @@ export const RegistrationForm = forwardRef<
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           control={form.control}
           name='role'
           render={({ field }) => (
@@ -186,7 +186,7 @@ export const RegistrationForm = forwardRef<
               <FormMessage className='text-xs' />
             </FormItem>
           )}
-        />
+        /> */}
         <FormField
           control={form.control}
           name='school'
@@ -216,14 +216,14 @@ export const RegistrationForm = forwardRef<
                   defaultValue={field.value}
                   className='flex flex-col space-y-1'
                 >
-                  <FormItem className='space-y-1'>
+                  {/* <FormItem className='space-y-1'>
                     <FormControl className={'mr-2'}>
                       <RadioGroupItem value='Mầm non' id='mamnon' />
                     </FormControl>
                     <FormLabel htmlFor='mamnon' className='text-sm'>
                       Mầm non
                     </FormLabel>
-                  </FormItem>
+                  </FormItem> */}
                   <FormItem className='space-y-1'>
                     <FormControl className={'mr-2'}>
                       <RadioGroupItem value='Tiểu học' id='tieuhoc' />
@@ -240,14 +240,14 @@ export const RegistrationForm = forwardRef<
                       Trung học cơ sở
                     </FormLabel>
                   </FormItem>
-                  <FormItem className='space-y-1'>
+                  {/* <FormItem className='space-y-1'>
                     <FormControl className={'mr-2'}>
                       <RadioGroupItem value='Trung học phổ thông' id='thpt' />
                     </FormControl>
                     <FormLabel htmlFor='thpt' className='text-sm'>
                       Trung học phổ thông
                     </FormLabel>
-                  </FormItem>
+                  </FormItem> */}
                 </RadioGroup>
               </FormControl>
               <FormMessage className='text-xs' />
