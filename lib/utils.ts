@@ -95,7 +95,8 @@ export async function createDealBitrix24(order: any) {
           UF_CRM_6178C6D2EDA26: order.school,
           UF_CRM_1742537683: order.schoolType,
           UF_CRM_1742859134: order.note,
-          UF_CRM_1744194486: order.role
+          UF_CRM_1744194486: order.role,
+          UF_CRM_1755499870: order.province
         },
       }
 

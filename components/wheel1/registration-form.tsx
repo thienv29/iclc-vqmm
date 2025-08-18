@@ -46,7 +46,7 @@ const formSchema = z.object({
   interests: z.array(z.string()).optional(),
   role: z.enum(['Quý Thầy Cô', 'Quý Phụ huynh', 'Khác'], {
     required_error: 'Vui lòng chọn một tùy chọn.',
-  }),
+  }).optional(),
 })
 
 type FormValues = z.infer<typeof formSchema>
@@ -85,6 +85,7 @@ export const RegistrationForm = forwardRef<
   RegistrationFormProps
 >(({ onSubmit, isSpinning }, ref) => {
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
+  const [provinceSearch, setProvinceSearch] = useState('')
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -103,6 +104,7 @@ export const RegistrationForm = forwardRef<
     reset: () => {
       form.reset()
       setExpandedSection(null)
+      setProvinceSearch('')
     },
   }))
 
@@ -113,6 +115,10 @@ export const RegistrationForm = forwardRef<
   const toggleSection = (section: string) => {
     setExpandedSection(expandedSection === section ? null : section)
   }
+
+  const filteredProvinces = provincesData.filter(province =>
+    province.toLowerCase().includes(provinceSearch.toLowerCase())
+  )
 
   return (
     <Form {...form}>
@@ -181,12 +187,32 @@ export const RegistrationForm = forwardRef<
                     <SelectValue placeholder='Chọn tỉnh/thành phố' />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className='max-h-60'>
-                  {provincesData.map((province) => (
-                    <SelectItem key={province} value={province}>
-                      {province}
-                    </SelectItem>
-                  ))}
+                <SelectContent className='max-h-72'>
+                  <div className='p-2 border-b'>
+                    <div className='relative'>
+                      <Search className='absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground' />
+                      <Input
+                        placeholder='Tìm kiếm tỉnh/thành phố...'
+                        value={provinceSearch}
+                        onChange={(e) => setProvinceSearch(e.target.value)}
+                        className='h-8 pl-8 text-sm'
+                        onKeyDown={(e) => e.stopPropagation()}
+                      />
+                    </div>
+                  </div>
+                  <div className='max-h-60 overflow-y-auto'>
+                    {filteredProvinces.length > 0 ? (
+                      filteredProvinces.map((province) => (
+                        <SelectItem key={province} value={province}>
+                          {province}
+                        </SelectItem>
+                      ))
+                    ) : (
+                      <div className='p-2 text-center text-sm text-muted-foreground'>
+                        Không tìm thấy tỉnh/thành phố
+                      </div>
+                    )}
+                  </div>
                 </SelectContent>
               </Select>
               <FormMessage className='text-xs' />

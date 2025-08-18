@@ -85,6 +85,7 @@ export default function LuckyWheel({ typeWheel }: { typeWheel: string }) {
       prizeName: prize.nameBitrix || prize.wheelDisplayName,
       note: prize.note,
       role: formData.role,
+      province: formData.province,
     })
   }
 
