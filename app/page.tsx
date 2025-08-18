@@ -10,7 +10,6 @@ export default function Home() {
         StorageService.clearData()
         const handleMessage = (event: MessageEvent) => {
             // Kiểm tra xem tin nhắn đến từ domain hợp lệ
-            console.log(event)
             if (event.origin !== "https://i-clc.edu.vn") return;
 
             // Nếu action là scrollTo, thực hiện cuộn tới phần tử có id="form-register"

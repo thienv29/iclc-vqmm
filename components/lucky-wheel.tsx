@@ -42,7 +42,6 @@ export default function LuckyWheel({ typeWheel }: { typeWheel: string }) {
       const dataGiai = await checkGiai();
       setDataGiai(dataGiai);
       if (await isRolledByPhone(data['phone'] as string)) {
-        console.log('Dxxx')
         toast.error('Bạn đã quay rồi', {
           position: 'top-center',
           style: {
@@ -64,14 +63,14 @@ export default function LuckyWheel({ typeWheel }: { typeWheel: string }) {
     setSelectedPrize(prize)
     setShowPopup(true)
 
-    console.log({
-      fullName: formData.name,
-      phone: formData.phone,
-      email: formData.email,
-      booth: formData.booth,
-      interests: formData.interests,
-      prizeName: prize.nameBitrix || prize.wheelDisplayName,
-    })
+    // console.log({
+    //   fullName: formData.name,
+    //   phone: formData.phone,
+    //   email: formData.email,
+    //   booth: formData.booth,
+    //   interests: formData.interests,
+    //   prizeName: prize.nameBitrix || prize.wheelDisplayName,
+    // })
 
     await createDealBitrix24({
       fullName: formData.name,
@@ -92,7 +91,7 @@ export default function LuckyWheel({ typeWheel }: { typeWheel: string }) {
   const handleClosePopup = () => {
     setShowPopup(false)
     if (formRef.current) {
-      formRef.current.reset()
+      // formRef.current.reset()
     }
   }
 

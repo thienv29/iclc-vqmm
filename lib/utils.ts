@@ -54,14 +54,17 @@ export async function isRolledByPhone(phoneNumber: string): Promise<boolean> {
 export async function checkGiai(): Promise<any> {
   try {
     const dealResponse = await fetch(
-        `${API_BASE}/crm.deal.list.json?filter[CATEGORY_ID]=${bitrixCategoryNumber}`
+        `${API_BASE}/crm.deal.list.json?filter[CATEGORY_ID]=${bitrixCategoryNumber}&select[]=UF_CRM_1729745560`
     )
     const dealData = await dealResponse.json()
     const deals = dealData.result || []
-    return {
-      dautu:deals.filter((item: any) => item.TITLE.includes("Đầu Tư")).length,
-      quocte:deals.filter((item: any) => item.TITLE.includes("Trải Nghiệm Quốc Tế")).length
-    }
+    const result: Record<string, number> = deals.reduce((acc: any, item: any) => {
+      const key = item.UF_CRM_1729745560.trim()
+      acc[key] = (acc[key] || 0) + 1
+      return acc
+    }, {} as Record<string, number>)
+    console.log(result);
+    return result
 
   } catch (error) {
     console.error('Lỗi khi gọi API:', error)

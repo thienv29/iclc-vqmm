@@ -2,7 +2,6 @@
 
 import {useEffect, useRef, useState} from "react"
 import type {Prize, WheelConfig} from "@/types/prize"
-import {checkGiai} from "@/lib/utils";
 
 interface WheelProps {
     prizes: Prize[]
@@ -148,9 +147,9 @@ export function Wheel({prizes, config, isSpinning, onSpinEnd, dataGiai}: WheelPr
             if (prize.imageUrl && prizeImagesRef.current[prize.id]) {
                 const img = prizeImagesRef.current[prize.id]
                 if (img) {
-                    const maxImgSize = 120 // Kích thước tối đa của hình ảnh
-                    const imgDistance = radius * 0.6 // Khoảng cách từ tâm
-            
+                    const maxImgSize = 130 // Kích thước tối đa của hình ảnh
+                    const imgDistance = radius * 0.7 // Khoảng cách từ tâm
+
                     // Tính tỷ lệ để giữ nguyên khung hình
                     const imgRatio = img.width / img.height
                     let imgWidth, imgHeight
@@ -327,23 +326,32 @@ export function Wheel({prizes, config, isSpinning, onSpinEnd, dataGiai}: WheelPr
             return
         }
 
-        const {dautu, quocte} = dataGiai;
-        const totalProbability = prizes.reduce((sum, prize) => sum + (prize.probabilityActual || prize.probability), 0)
+        const totalProbability = prizes.reduce((sum, prize) => sum + (prize.probability), 0)
         let winningIndex = -1;
+        let countPrize = 0;
 
-        while (winningIndex === -1 ||
-        ( prizes[winningIndex].wheelDisplayName.includes("Đầu Tư") && dautu >= 30) || ( prizes[winningIndex].wheelDisplayName.includes("Quốc Tế") && quocte >= 30)
-            ) {
+        while (
+            winningIndex === -1 ||
+            countPrize >= (prizes[winningIndex].probabilityActual ?? 0)
+        ) {
+            console.log(winningIndex, countPrize, prizes[winningIndex]?.probabilityActual ?? 0);
+            
             const randomValue = Math.random() * totalProbability;
             let cumulativeProbability = 0;
+            console.log('start spinning');
 
             for (let i = 0; i < prizes.length; i++) {
-                cumulativeProbability += (prizes[i].probabilityActual || prizes[i].probability);
+                cumulativeProbability += (prizes[i].probability);
                 if (randomValue <= cumulativeProbability) {
                     winningIndex = i;
+                    countPrize = dataGiai[prizes[winningIndex].nameBitrix] ?? 0
+                    console.log('winningIndex:', winningIndex);
+                    console.log('countPrize:', countPrize);
                     break;
                 }
             }
+            console.log(countPrize,prizes[winningIndex].probabilityActual ,prizes[winningIndex].nameBitrix, prizes )
+
         }
 
         // Calculate the final rotation to land on the winning prize
