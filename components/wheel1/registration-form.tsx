@@ -4,7 +4,7 @@ import { forwardRef, useImperativeHandle, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import { ChevronDown, ChevronUp, Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -25,6 +25,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import provincesData from '@/services/list-province.json'
+
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Tên phải có ít nhất 2 ký tự.' }),
   email: z
@@ -34,6 +36,7 @@ const formSchema = z.object({
     .email({ message: 'Vui lòng nhập địa chỉ email hợp lệ.' }),
   school: z.string().trim().min(1, { message: 'Required' }),
   schoolType: z.string().trim().min(1, { message: 'Required' }),
+  province: z.string().trim().min(1, { message: 'Vui lòng chọn tỉnh/thành phố.' }),
   phone: z
     .string()
     .regex(/^\d{10,11}$/, {
@@ -91,6 +94,7 @@ export const RegistrationForm = forwardRef<
       phone: '',
       school: '',
       schoolType: '',
+      province: '',
       interests: [],
     },
   })
@@ -165,28 +169,30 @@ export const RegistrationForm = forwardRef<
             </FormItem>
           )}
         />
-        {/* <FormField
+        <FormField
           control={form.control}
-          name='role'
+          name='province'
           render={({ field }) => (
             <FormItem className='space-y-1'>
-              <FormLabel className='text-sm'>Ông/Bà là</FormLabel>
+              <FormLabel className='text-sm'>Tỉnh/Thành phố</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger className='h-9 text-sm'>
-                    <SelectValue placeholder='Chọn vai trò' />
+                    <SelectValue placeholder='Chọn tỉnh/thành phố' />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
-                  <SelectItem value='Quý Thầy Cô'>Quý Thầy Cô</SelectItem>
-                  <SelectItem value='Quý Phụ huynh'>Quý Phụ huynh</SelectItem>
-                  <SelectItem value='Khác'>Khác</SelectItem>
+                <SelectContent className='max-h-60'>
+                  {provincesData.map((province) => (
+                    <SelectItem key={province} value={province}>
+                      {province}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage className='text-xs' />
             </FormItem>
           )}
-        /> */}
+        />
         <FormField
           control={form.control}
           name='school'
