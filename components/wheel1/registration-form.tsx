@@ -36,7 +36,7 @@ const formSchema = z.object({
     .email({ message: 'Vui lòng nhập địa chỉ email hợp lệ.' }),
   school: z.string().trim().min(1, { message: 'Required' }),
   schoolType: z.string().trim().min(1, { message: 'Required' }),
-  province: z.string().trim().min(1, { message: 'Vui lòng chọn tỉnh/thành phố.' }),
+  province: z.string().trim().min(1, { message: 'Vui lòng chọn Phường/Xã.' }),
   phone: z
     .string()
     .regex(/^\d{10,11}$/, {
@@ -175,50 +175,7 @@ export const RegistrationForm = forwardRef<
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name='province'
-          render={({ field }) => (
-            <FormItem className='space-y-1'>
-              <FormLabel className='text-sm'>Tỉnh/Thành phố</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger className='h-9 text-sm'>
-                    <SelectValue placeholder='Chọn tỉnh/thành phố' />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent className='max-h-72'>
-                  <div className='p-2 border-b'>
-                    <div className='relative'>
-                      <Search className='absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground' />
-                      <Input
-                        placeholder='Tìm kiếm tỉnh/thành phố...'
-                        value={provinceSearch}
-                        onChange={(e) => setProvinceSearch(e.target.value)}
-                        className='h-8 pl-8 text-sm'
-                        onKeyDown={(e) => e.stopPropagation()}
-                      />
-                    </div>
-                  </div>
-                  <div className='max-h-60 overflow-y-auto'>
-                    {filteredProvinces.length > 0 ? (
-                      filteredProvinces.map((province) => (
-                        <SelectItem key={province} value={province}>
-                          {province}
-                        </SelectItem>
-                      ))
-                    ) : (
-                      <div className='p-2 text-center text-sm text-muted-foreground'>
-                        Không tìm thấy tỉnh/thành phố
-                      </div>
-                    )}
-                  </div>
-                </SelectContent>
-              </Select>
-              <FormMessage className='text-xs' />
-            </FormItem>
-          )}
-        />
+        
         <FormField
           control={form.control}
           name='school'
@@ -282,6 +239,50 @@ export const RegistrationForm = forwardRef<
                   </FormItem> */}
                 </RadioGroup>
               </FormControl>
+              <FormMessage className='text-xs' />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='province'
+          render={({ field }) => (
+            <FormItem className='space-y-1'>
+              <FormLabel className='text-sm'>Phường/ Xã</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger className='h-9 text-sm'>
+                    <SelectValue placeholder='Chọn Phường/ Xã' />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent className='max-h-72'>
+                  <div className='p-2 border-b'>
+                    <div className='relative'>
+                      <Search className='absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground' />
+                      <Input
+                        placeholder='Tìm kiếm Phường/ Xã...'
+                        value={provinceSearch}
+                        onChange={(e) => setProvinceSearch(e.target.value)}
+                        className='h-8 pl-8 text-sm'
+                        onKeyDown={(e) => e.stopPropagation()}
+                      />
+                    </div>
+                  </div>
+                  <div className='max-h-60 overflow-y-auto'>
+                    {filteredProvinces.length > 0 ? (
+                      filteredProvinces.map((province) => (
+                        <SelectItem key={province} value={province}>
+                          {province}
+                        </SelectItem>
+                      ))
+                    ) : (
+                      <div className='p-2 text-center text-sm text-muted-foreground'>
+                        Không tìm thấy Phường/ Xã
+                      </div>
+                    )}
+                  </div>
+                </SelectContent>
+              </Select>
               <FormMessage className='text-xs' />
             </FormItem>
           )}

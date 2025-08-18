@@ -48,6 +48,13 @@ export const StorageService = {
     }
   },
 
+  clearData: (): void => {
+    if (typeof window === 'undefined') {
+      return
+    }
+    localStorage.removeItem(STORAGE_KEY)
+  },
+
   saveData: (data: WheelData): void => {
     if (typeof window === 'undefined') {
       return

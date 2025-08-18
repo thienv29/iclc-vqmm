@@ -43,7 +43,7 @@ export default function AdminPage() {
       )
     ) {
       StorageService.resetToDefault()
-      const data = StorageService.getData()
+      const data = StorageService.getData('wheel-1')
       setPrizes(data.prizes)
       setSpinResults(data.spinResults)
     }

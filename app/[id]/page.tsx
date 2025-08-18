@@ -9,7 +9,7 @@ export default function Wheel() {
   const typeWheel = `wheel-${id}`
 
   useEffect(() => {
-    StorageService.resetToDefault()
+    StorageService.clearData()
     const handleMessage = (event: MessageEvent) => {
       // Kiểm tra xem tin nhắn đến từ domain hợp lệ
       console.log(event)

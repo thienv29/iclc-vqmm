@@ -5,8 +5,9 @@ import {useEffect} from "react";
 import {StorageService} from "@/services/storage-service";
 
 export default function Home() {
+    
     useEffect(() => {
-        StorageService.resetToDefault()
+        StorageService.clearData()
         const handleMessage = (event: MessageEvent) => {
             // Kiểm tra xem tin nhắn đến từ domain hợp lệ
             console.log(event)

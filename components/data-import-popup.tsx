@@ -32,7 +32,7 @@ export function DataImportPopup({onClose}: {onClose: any}) {
 
     const handleReset = () => {
         StorageService.resetToDefault();
-        setData(StorageService.getData());
+        // setData(StorageService.getData());
         alert("Dữ liệu đã được đặt lại mặc định!");
     };
   return (
