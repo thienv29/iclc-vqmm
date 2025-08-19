@@ -21,6 +21,7 @@ export default function LuckyWheel({ typeWheel }: { typeWheel: string }) {
     pointerColor: '#FF1493',
   })
   const [isSpinning, setIsSpinning] = useState(false)
+  const [isSubmittingForm, setIsSubmittingForm] = useState(false) // New state for form submission loading
   const [selectedPrize, setSelectedPrize] = useState<Prize | null>(null)
   const [showPopup, setShowPopup] = useState(false)
   const [showStats, setShowStats] = useState(false)
@@ -38,9 +39,16 @@ export default function LuckyWheel({ typeWheel }: { typeWheel: string }) {
   }, [])
 
   const handleFormSubmit = async (data: Record<string, string | string[]>) => {
-    if (!isSpinning) {
-      const dataGiai = await checkGiai();
-      setDataGiai(dataGiai);
+    if (isSpinning || isSubmittingForm) {
+      return // Prevent multiple submissions
+    }
+
+    setIsSubmittingForm(true) // Start loading
+
+    try {
+      const dataGiai = await checkGiai()
+      setDataGiai(dataGiai)
+
       if (await isRolledByPhone(data['phone'] as string)) {
         toast.error('Bạn đã quay rồi', {
           position: 'top-center',
@@ -53,8 +61,22 @@ export default function LuckyWheel({ typeWheel }: { typeWheel: string }) {
         })
         return
       }
+
       setFormData(data)
       setIsSpinning(true)
+    } catch (error) {
+      console.error('Error during form submission:', error)
+      toast.error('Có lỗi xảy ra, vui lòng thử lại.', {
+        position: 'top-center',
+        style: {
+          fontSize: '20px',
+          fontWeight: 'bold',
+          textAlign: 'center',
+          color: 'red',
+        },
+      })
+    } finally {
+      setIsSubmittingForm(false) // End loading
     }
   }
 
@@ -126,12 +148,14 @@ export default function LuckyWheel({ typeWheel }: { typeWheel: string }) {
           <RegistrationForm
             onSubmit={handleFormSubmit}
             isSpinning={isSpinning}
+            isSubmittingForm={isSubmittingForm} // Pass new prop
             ref={formRef}
           />
         ) : (
           <RegistrationForm2
             onSubmit={handleFormSubmit}
             isSpinning={isSpinning}
+            isSubmittingForm={isSubmittingForm} // Pass new prop
             ref={formRef}
           />
         )}

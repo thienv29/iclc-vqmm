@@ -36,12 +36,13 @@ type FormValues = z.infer<typeof formSchema>
 type RegistrationFormProps = {
   onSubmit: (data: Record<string, string | string[]>) => void
   isSpinning: boolean
+  isSubmittingForm: boolean // New prop
 }
 
 export const RegistrationForm2 = forwardRef<
   { reset: () => void },
   RegistrationFormProps
->(({ onSubmit, isSpinning }, ref) => {
+>(({ onSubmit, isSpinning, isSubmittingForm }, ref) => {
   const [expandedSection, setExpandedSection] = useState<string | null>(null)
 
   const form = useForm<FormValues>({
@@ -126,9 +127,9 @@ export const RegistrationForm2 = forwardRef<
         <Button
           type='submit'
           className='w-full !mt-5 animate-pulse hover:animate-none'
-          disabled={isSpinning}
+          disabled={isSpinning || isSubmittingForm}
         >
-          {isSpinning ? 'Đang quay...' : 'Quay Ngay'}
+          {isSubmittingForm ? 'Đang kiểm tra...' : isSpinning ? 'Đang quay...' : 'Quay Ngay'}
         </Button>
       </form>
     </Form>
