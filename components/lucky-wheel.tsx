@@ -142,7 +142,7 @@ export default function LuckyWheel({ typeWheel }: { typeWheel: string }) {
         className='max-w-md bg-white p-5 rounded-lg shadow-lg order-1 md:order-2 backdrop-blur-sm bg-opacity-90 border border-pink-200 transform transition-all hover:shadow-xl'
       >
         <h2 className='text-2xl font-semibold mb-4 text-center bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent'>
-          Thông Tin Đăng Ký
+          THÔNG TIN NHẬN GIẢI THƯỞNG
         </h2>
         {typeWheel === 'wheel-1' ? (
           <RegistrationForm
