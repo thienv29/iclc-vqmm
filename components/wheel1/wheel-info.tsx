@@ -9,10 +9,6 @@ function WheelInfo() {
             quay&nbsp;<b>01 lần</b>.
           </li>
           <li className=''>
-            <span className='mr-2'>🎁</span> Quà tặng hiện vật sẽ được nhận trực
-            tiếp tại quầy.
-          </li>
-          <li className=''>
             <span className='mr-2'>📧</span> Quà tặng&nbsp;<b>E-voucher</b>
             &nbsp;sẽ nhận qua email.
           </li>
