@@ -313,7 +313,6 @@ export function Wheel({prizes, config, isSpinning, onSpinEnd, dataGiai}: WheelPr
         ctx.lineWidth = 1
         ctx.stroke()
     }
-
     // Handle spinning animation
     useEffect(() => {
         if (!isSpinning) {
@@ -326,32 +325,41 @@ export function Wheel({prizes, config, isSpinning, onSpinEnd, dataGiai}: WheelPr
             return
         }
 
-        const totalProbability = prizes.reduce((sum, prize) => sum + (prize.probability), 0)
         let winningIndex = -1;
-        let countPrize = 0;
 
-        while (
-            winningIndex === -1 ||
-            countPrize >= (prizes[winningIndex].probabilityActual ?? 0)
-        ) {
-            console.log(winningIndex, countPrize, prizes[winningIndex]?.probabilityActual ?? 0);
-            
+        // Filter out prizes that have reached their probabilityActual limit
+        const availablePrizes = prizes.filter(prize => {
+            const count = dataGiai[prize.nameBitrix] ?? 0;
+            return count < (prize.probabilityActual ?? Infinity);
+        });
+
+        if (availablePrizes.length === 0) {
+            // All prizes have reached their limits, select randomly from all prizes
+            const totalProbability = prizes.reduce((sum, prize) => sum + prize.probability, 0);
             const randomValue = Math.random() * totalProbability;
             let cumulativeProbability = 0;
-            console.log('start spinning');
 
             for (let i = 0; i < prizes.length; i++) {
-                cumulativeProbability += (prizes[i].probability);
+                cumulativeProbability += prizes[i].probability;
                 if (randomValue <= cumulativeProbability) {
                     winningIndex = i;
-                    countPrize = dataGiai[prizes[winningIndex].nameBitrix] ?? 0
-                    console.log('winningIndex:', winningIndex);
-                    console.log('countPrize:', countPrize);
                     break;
                 }
             }
-            console.log(countPrize,prizes[winningIndex].probabilityActual ,prizes[winningIndex].nameBitrix, prizes )
+        } else {
+            // Select from available prizes
+            const totalProbability = availablePrizes.reduce((sum, prize) => sum + prize.probability, 0);
+            const randomValue = Math.random() * totalProbability;
+            let cumulativeProbability = 0;
 
+            for (let i = 0; i < availablePrizes.length; i++) {
+                cumulativeProbability += availablePrizes[i].probability;
+                if (randomValue <= cumulativeProbability) {
+                    // Find the original index in the prizes array
+                    winningIndex = prizes.findIndex(p => p.id === availablePrizes[i].id);
+                    break;
+                }
+            }
         }
 
         // Calculate the final rotation to land on the winning prize
@@ -386,7 +394,7 @@ export function Wheel({prizes, config, isSpinning, onSpinEnd, dataGiai}: WheelPr
                 cancelAnimationFrame(requestRef.current)
             }
         }
-    }, [isSpinning, prizes, onSpinEnd, selectedPrizeIndex])
+    }, [isSpinning, prizes, onSpinEnd, selectedPrizeIndex, dataGiai])
 
     return (
         <div className="relative">
@@ -420,4 +428,3 @@ export function Wheel({prizes, config, isSpinning, onSpinEnd, dataGiai}: WheelPr
         </div>
     )
 }
-
