@@ -237,6 +237,14 @@ export const RegistrationForm = forwardRef<
                       Trung học phổ thông
                     </FormLabel>
                   </FormItem>
+                  <FormItem className='space-y-1'>
+                    <FormControl className={'mr-2'}>
+                      <RadioGroupItem value='Khác' id='khac' />
+                    </FormControl>
+                    <FormLabel htmlFor='khac' className='text-sm'>
+                      Khác
+                    </FormLabel>
+                  </FormItem>
                 </RadioGroup>
               </FormControl>
               <FormMessage className='text-xs' />
