@@ -117,3 +117,7 @@ export async function createDealBitrix24(order: any) {
     console.error('Error:', error)
   }
 }
+
+export function normalize(str: string) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+}

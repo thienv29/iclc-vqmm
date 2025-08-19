@@ -17,7 +17,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Checkbox } from '@/components/ui/checkbox'
-import { cn } from '@/lib/utils'
+import { cn, normalize } from '@/lib/utils'
 import {
   Select,
   SelectContent,
@@ -117,7 +117,7 @@ export const RegistrationForm = forwardRef<
   }
 
   const filteredProvinces = provincesData.filter(province =>
-    province.toLowerCase().includes(provinceSearch.toLowerCase())
+    normalize(province).includes(normalize(provinceSearch))
   )
 
   return (
