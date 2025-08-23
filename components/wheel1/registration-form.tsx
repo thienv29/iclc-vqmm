@@ -35,7 +35,7 @@ const formSchema = z.object({
     .min(1, { message: 'Required' })
     .email({ message: 'Vui lòng nhập địa chỉ email hợp lệ.' }),
   school: z.string().trim().min(1, { message: 'Required' }),
-  schoolType: z.string().trim().min(1, { message: 'Required' }),
+  schoolType: z.string().trim().optional(),
   province: z.string().trim().min(1, { message: 'Vui lòng chọn Phường/Xã.' }),
   phone: z
     .string()
